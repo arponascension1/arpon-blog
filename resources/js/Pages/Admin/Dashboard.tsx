@@ -1,37 +1,9 @@
 import React from 'react';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, Link } from '@inertiajs/react';
-
-interface Post {
-    id: number;
-    title: string;
-    status: 'published' | 'draft';
-    published_at: string;
-    views: number;
-    category: { name: string } | null;
-    author: { name: string };
-}
-
-interface User {
-    id: number;
-    name: string;
-    email: string;
-    is_admin: boolean;
-    created_at: string;
-}
-
-interface CategoryStat {
-    name: string;
-    posts_count: number;
-    total_views: number;
-}
-
-import React from 'react';
-import AdminLayout from '@/Layouts/AdminLayout';
-import { Head, Link } from '@inertiajs/react';
 import { 
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-    BarChart, Bar, Legend, Cell
+    BarChart, Bar
 } from 'recharts';
 
 interface Post {

@@ -1,10 +1,11 @@
 import { jsxs, jsx } from "react/jsx-runtime";
 import { A as AdminLayout } from "./AdminLayout-DmLr14pk.js";
 import { Head, Link } from "@inertiajs/react";
+import { ResponsiveContainer, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area, BarChart, Bar } from "recharts";
 import "react";
 import "axios";
 import "@headlessui/react";
-function Dashboard({ stats, recent_posts, popular_posts, recent_users, category_stats, recent_activity }) {
+function Dashboard({ stats, recent_posts, popular_posts, recent_users, category_stats, recent_activity, chart_data }) {
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       month: "short",
@@ -63,6 +64,103 @@ function Dashboard({ stats, recent_posts, popular_posts, recent_users, category_
             colorClass: "bg-purple-500"
           }
         )
+      ] }),
+      /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8", children: [
+        /* @__PURE__ */ jsxs("div", { className: "lg:col-span-2 bg-white p-6 rounded-lg shadow-sm border border-gray-200", children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between mb-6", children: [
+            /* @__PURE__ */ jsxs("div", { children: [
+              /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900", children: "Traffic Overview" }),
+              /* @__PURE__ */ jsx("p", { className: "text-sm text-gray-500", children: "Post views over the last 14 days" })
+            ] }),
+            /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-2 text-xs font-bold text-gray-400 uppercase tracking-widest", children: [
+              /* @__PURE__ */ jsx("span", { className: "h-3 w-3 rounded-full bg-blue-500" }),
+              /* @__PURE__ */ jsx("span", { children: "Views" })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsx("div", { className: "h-80 w-full", children: /* @__PURE__ */ jsx(ResponsiveContainer, { width: "100%", height: "100%", children: /* @__PURE__ */ jsxs(AreaChart, { data: chart_data, margin: { top: 10, right: 10, left: -20, bottom: 0 }, children: [
+            /* @__PURE__ */ jsx("defs", { children: /* @__PURE__ */ jsxs("linearGradient", { id: "colorViews", x1: "0", y1: "0", x2: "0", y2: "1", children: [
+              /* @__PURE__ */ jsx("stop", { offset: "5%", stopColor: "#3b82f6", stopOpacity: 0.1 }),
+              /* @__PURE__ */ jsx("stop", { offset: "95%", stopColor: "#3b82f6", stopOpacity: 0 })
+            ] }) }),
+            /* @__PURE__ */ jsx(CartesianGrid, { strokeDasharray: "3 3", vertical: false, stroke: "#f3f4f6" }),
+            /* @__PURE__ */ jsx(
+              XAxis,
+              {
+                dataKey: "date",
+                axisLine: false,
+                tickLine: false,
+                tick: { fill: "#9ca3af", fontSize: 10, fontWeight: 700 },
+                dy: 10
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              YAxis,
+              {
+                axisLine: false,
+                tickLine: false,
+                tick: { fill: "#9ca3af", fontSize: 10, fontWeight: 700 }
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              Tooltip,
+              {
+                contentStyle: { backgroundColor: "#fff", borderRadius: "12px", border: "none", boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)" },
+                itemStyle: { fontSize: "12px", fontWeight: 900, color: "#1f2937" }
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              Area,
+              {
+                type: "monotone",
+                dataKey: "views",
+                stroke: "#3b82f6",
+                strokeWidth: 3,
+                fillOpacity: 1,
+                fill: "url(#colorViews)",
+                animationDuration: 1500
+              }
+            )
+          ] }) }) })
+        ] }),
+        /* @__PURE__ */ jsxs("div", { className: "bg-white p-6 rounded-lg shadow-sm border border-gray-200", children: [
+          /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between mb-6", children: [
+            /* @__PURE__ */ jsxs("div", { children: [
+              /* @__PURE__ */ jsx("h3", { className: "text-lg font-bold text-gray-900", children: "New Members" }),
+              /* @__PURE__ */ jsx("p", { className: "text-sm text-gray-500", children: "Registrations (14d)" })
+            ] }),
+            /* @__PURE__ */ jsx("div", { className: "p-2 bg-green-50 rounded-md text-green-600", children: /* @__PURE__ */ jsx("svg", { className: "h-5 w-5", fill: "none", stroke: "currentColor", viewBox: "0 0 24 24", children: /* @__PURE__ */ jsx("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "2", d: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" }) }) })
+          ] }),
+          /* @__PURE__ */ jsx("div", { className: "h-80 w-full", children: /* @__PURE__ */ jsx(ResponsiveContainer, { width: "100%", height: "100%", children: /* @__PURE__ */ jsxs(BarChart, { data: chart_data, margin: { top: 10, right: 0, left: -25, bottom: 0 }, children: [
+            /* @__PURE__ */ jsx(CartesianGrid, { strokeDasharray: "3 3", vertical: false, stroke: "#f3f4f6" }),
+            /* @__PURE__ */ jsx(
+              XAxis,
+              {
+                dataKey: "date",
+                axisLine: false,
+                tickLine: false,
+                tick: { fill: "#9ca3af", fontSize: 10, fontWeight: 700 },
+                dy: 10
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              YAxis,
+              {
+                axisLine: false,
+                tickLine: false,
+                tick: { fill: "#9ca3af", fontSize: 10, fontWeight: 700 }
+              }
+            ),
+            /* @__PURE__ */ jsx(
+              Tooltip,
+              {
+                cursor: { fill: "#f9fafb" },
+                contentStyle: { backgroundColor: "#fff", borderRadius: "12px", border: "none", boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)" },
+                itemStyle: { fontSize: "12px", fontWeight: 900, color: "#10b981" }
+              }
+            ),
+            /* @__PURE__ */ jsx(Bar, { dataKey: "users", fill: "#10b981", radius: [4, 4, 0, 0], barSize: 12, animationDuration: 1500 })
+          ] }) }) })
+        ] })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8", children: [
         /* @__PURE__ */ jsxs("div", { className: "bg-white overflow-hidden shadow-sm rounded-lg border border-gray-200", children: [

@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts/{post}/like', [\App\Http\Controllers\Client\PostLikeController::class, 'toggle'])->name('posts.like');
 });
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/analytics', [\App\Http\Controllers\Admin\AnalyticsController::class, 'index'])->name('analytics.index');
 

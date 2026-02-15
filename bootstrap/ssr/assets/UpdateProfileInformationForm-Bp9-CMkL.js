@@ -1,6 +1,5 @@
 import { jsxs, jsx } from "react/jsx-runtime";
-import { I as InputError, T as TextInput } from "./TextInput-9F-oIIhb.js";
-import { I as InputLabel } from "./InputLabel-CE_n4Upz.js";
+import { a as InputLabel, I as InputError, T as TextInput } from "./TextInput-Cpd-jkNw.js";
 import { Transition } from "@headlessui/react";
 import { usePage, useForm, Link } from "@inertiajs/react";
 import { useRef } from "react";

@@ -1,46 +1,46 @@
 import { jsxs, jsx } from "react/jsx-runtime";
+import { useEffect } from "react";
 import { useForm, Head, Link } from "@inertiajs/react";
 import { A as AdminLayout } from "./AdminLayout-DmLr14pk.js";
-import { T as TextInput, I as InputError } from "./TextInput-9F-oIIhb.js";
-import { I as InputLabel } from "./InputLabel-CE_n4Upz.js";
+import { a as InputLabel, T as TextInput, I as InputError } from "./TextInput-Cpd-jkNw.js";
 import { P as PrimaryButton } from "./PrimaryButton-DgVfVBwo.js";
 import { M as MediaPicker } from "./MediaPicker-B2RzXcBl.js";
 import { R as RichTextEditor, M as MultiSelect } from "./RichTextEditor-B_SgOxa2.js";
 import { S as SearchSelect } from "./SearchSelect-Bb7X9Dja.js";
-import "react";
 import "axios";
 import "@headlessui/react";
 import "./Modal-B-IxVM06.js";
 import "./Dropdown-CbnvImCK.js";
 import "jodit-react";
-function Edit({ post: initialPost, categories, tags }) {
-  const { data, setData, put, processing, errors } = useForm({
-    category_id: initialPost.category_id.toString(),
-    title: initialPost.title,
-    slug: initialPost.slug,
-    content: initialPost.content,
-    excerpt: initialPost.excerpt || "",
-    featured_image: initialPost.featured_image || "",
-    status: initialPost.status,
-    is_featured: initialPost.is_featured,
-    published_at: initialPost.published_at ? initialPost.published_at.substring(0, 16) : "",
-    tags: initialPost.tags?.map((t) => t.id) || [],
-    meta_title: initialPost.meta_title || "",
-    meta_description: initialPost.meta_description || "",
-    meta_keywords: initialPost.meta_keywords || ""
+function Create({ categories, tags }) {
+  const { data, setData, post, processing, errors } = useForm({
+    category_id: "",
+    title: "",
+    slug: "",
+    content: "",
+    excerpt: "",
+    featured_image: "",
+    status: "draft",
+    is_featured: false,
+    published_at: "",
+    tags: [],
+    meta_title: "",
+    meta_description: "",
+    meta_keywords: ""
   });
+  useEffect(() => {
+    const slug = data.title.toLowerCase().replace(/[^\w ]+/g, "").replace(/ +/g, "-");
+    setData("slug", slug);
+  }, [data.title]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    put(`/admin/posts/${initialPost.id}`);
+    post("/admin/posts");
   };
   return /* @__PURE__ */ jsxs(AdminLayout, { children: [
-    /* @__PURE__ */ jsx(Head, { title: `Edit Post: ${initialPost.title}` }),
+    /* @__PURE__ */ jsx(Head, { title: "Create Post" }),
     /* @__PURE__ */ jsx("div", { className: "py-6", children: /* @__PURE__ */ jsx("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: /* @__PURE__ */ jsxs("form", { onSubmit: handleSubmit, className: "space-y-6", children: [
       /* @__PURE__ */ jsxs("div", { className: "flex justify-between items-center", children: [
-        /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsxs("h1", { className: "text-2xl font-bold text-gray-900 line-clamp-1", children: [
-          "Edit: ",
-          initialPost.title
-        ] }) }),
+        /* @__PURE__ */ jsx("div", { children: /* @__PURE__ */ jsx("h1", { className: "text-2xl font-bold text-gray-900", children: "Create New Post" }) }),
         /* @__PURE__ */ jsxs("div", { className: "flex space-x-3", children: [
           /* @__PURE__ */ jsx(
             Link,
@@ -50,7 +50,7 @@ function Edit({ post: initialPost, categories, tags }) {
               children: "Cancel"
             }
           ),
-          /* @__PURE__ */ jsx(PrimaryButton, { disabled: processing, children: "Update Post" })
+          /* @__PURE__ */ jsx(PrimaryButton, { disabled: processing, children: "Save Post" })
         ] })
       ] }),
       /* @__PURE__ */ jsxs("div", { className: "space-y-6", children: [
@@ -91,7 +91,7 @@ function Edit({ post: initialPost, categories, tags }) {
                 id: "excerpt",
                 className: "mt-1 block w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm",
                 rows: 2,
-                value: data.excerpt,
+                value: data.excerpt || "",
                 onChange: (e) => setData("excerpt", e.target.value),
                 placeholder: "A brief summary for search results and social media..."
               }
@@ -138,7 +138,7 @@ function Edit({ post: initialPost, categories, tags }) {
                   MediaPicker,
                   {
                     label: "Featured Image",
-                    currentValue: data.featured_image,
+                    currentValue: data.featured_image || "",
                     onSelect: (url) => setData("featured_image", url)
                   }
                 ),
@@ -232,7 +232,7 @@ function Edit({ post: initialPost, categories, tags }) {
                     id: "meta_title",
                     type: "text",
                     className: "mt-1 block w-full",
-                    value: data.meta_title,
+                    value: data.meta_title || "",
                     onChange: (e) => setData("meta_title", e.target.value),
                     placeholder: "SEO title..."
                   }
@@ -246,7 +246,7 @@ function Edit({ post: initialPost, categories, tags }) {
                     id: "meta_keywords",
                     type: "text",
                     className: "mt-1 block w-full",
-                    value: data.meta_keywords,
+                    value: data.meta_keywords || "",
                     onChange: (e) => setData("meta_keywords", e.target.value),
                     placeholder: "news, blog, updates..."
                   }
@@ -261,7 +261,7 @@ function Edit({ post: initialPost, categories, tags }) {
                   id: "meta_description",
                   className: "mt-1 block w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm",
                   rows: 4,
-                  value: data.meta_description,
+                  value: data.meta_description || "",
                   onChange: (e) => setData("meta_description", e.target.value),
                   placeholder: "Brief description for search engines..."
                 }
@@ -274,5 +274,5 @@ function Edit({ post: initialPost, categories, tags }) {
   ] });
 }
 export {
-  Edit as default
+  Create as default
 };

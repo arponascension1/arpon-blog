@@ -1,16 +1,15 @@
 import { jsxs, jsx } from "react/jsx-runtime";
 import { P as PublicLayout } from "./PublicLayout-BTQtFEwB.js";
 import { Head } from "@inertiajs/react";
-import DeleteUserForm from "./DeleteUserForm-C-BqVfPW.js";
-import UpdatePasswordForm from "./UpdatePasswordForm-C_DFiyAo.js";
-import UpdateProfileInformation from "./UpdateProfileInformationForm-DlKjXrMH.js";
+import DeleteUserForm from "./DeleteUserForm-DyfxXCWO.js";
+import UpdatePasswordForm from "./UpdatePasswordForm-B20XK4bj.js";
+import UpdateProfileInformation from "./UpdateProfileInformationForm-Bp9-CMkL.js";
 import "react";
 import "./SEO-BqzDCEc9.js";
 import "./Dropdown-CbnvImCK.js";
 import "@headlessui/react";
 import "./DangerButton-B7to2Tbx.js";
-import "./TextInput-9F-oIIhb.js";
-import "./InputLabel-CE_n4Upz.js";
+import "./TextInput-Cpd-jkNw.js";
 import "./Modal-B-IxVM06.js";
 import "./PrimaryButton-DgVfVBwo.js";
 function Edit({

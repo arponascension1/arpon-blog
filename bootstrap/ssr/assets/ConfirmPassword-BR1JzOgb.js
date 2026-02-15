@@ -1,6 +1,5 @@
 import { jsxs, jsx } from "react/jsx-runtime";
-import { T as TextInput, I as InputError } from "./TextInput-9F-oIIhb.js";
-import { I as InputLabel } from "./InputLabel-CE_n4Upz.js";
+import { a as InputLabel, T as TextInput, I as InputError } from "./TextInput-Cpd-jkNw.js";
 import { P as PrimaryButton } from "./PrimaryButton-DgVfVBwo.js";
 import { G as Guest } from "./GuestLayout-DjB8fCW5.js";
 import { useForm, Head } from "@inertiajs/react";

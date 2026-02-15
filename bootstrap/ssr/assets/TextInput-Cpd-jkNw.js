@@ -14,6 +14,21 @@ function InputError({
     }
   ) : null;
 }
+function InputLabel({
+  value,
+  className = "",
+  children,
+  ...props
+}) {
+  return /* @__PURE__ */ jsx(
+    "label",
+    {
+      ...props,
+      className: `block text-sm font-medium text-gray-700 ` + className,
+      children: value ? value : children
+    }
+  );
+}
 const TextInput = forwardRef(function TextInput2({
   type = "text",
   className = "",
@@ -41,5 +56,6 @@ const TextInput = forwardRef(function TextInput2({
 });
 export {
   InputError as I,
-  TextInput as T
+  TextInput as T,
+  InputLabel as a
 };

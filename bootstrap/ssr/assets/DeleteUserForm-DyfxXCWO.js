@@ -1,7 +1,6 @@
 import { jsxs, jsx } from "react/jsx-runtime";
 import { D as DangerButton } from "./DangerButton-B7to2Tbx.js";
-import { T as TextInput, I as InputError } from "./TextInput-9F-oIIhb.js";
-import { I as InputLabel } from "./InputLabel-CE_n4Upz.js";
+import { a as InputLabel, T as TextInput, I as InputError } from "./TextInput-Cpd-jkNw.js";
 import { M as Modal, S as SecondaryButton } from "./Modal-B-IxVM06.js";
 import { useForm } from "@inertiajs/react";
 import { useState, useRef } from "react";

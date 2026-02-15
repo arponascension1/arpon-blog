@@ -35,7 +35,7 @@ export default function Authenticated({
                                 </NavLink>
                                 {user.is_admin && (
                                     <NavLink
-                                        href="/admin/dashboard"
+                                        href="/admin"
                                         active={route().current('admin.*')}
                                     >
                                         Admin Panel
@@ -147,7 +147,7 @@ export default function Authenticated({
                         </ResponsiveNavLink>
                         {user.is_admin && (
                             <ResponsiveNavLink
-                                href="/admin/dashboard"
+                                href="/admin"
                                 active={route().current('admin.*')}
                             >
                                 Admin Panel

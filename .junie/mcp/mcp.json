@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "/usr/bin/php8.3",
+            "args": [
+                "/home/arpon/Documents/laravel-project/arpon-blog/artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}

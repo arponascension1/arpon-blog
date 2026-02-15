@@ -1,0 +1,15 @@
+{
+    "agents": [
+        "codex",
+        "gemini",
+        "cursor",
+        "claude_code",
+        "copilot",
+        "junie",
+        "opencode"
+    ],
+    "guidelines": true,
+    "herd_mcp": false,
+    "mcp": true,
+    "sail": false
+}

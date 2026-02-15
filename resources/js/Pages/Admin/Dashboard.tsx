@@ -26,6 +26,38 @@ interface CategoryStat {
     total_views: number;
 }
 
+import React from 'react';
+import AdminLayout from '@/Layouts/AdminLayout';
+import { Head, Link } from '@inertiajs/react';
+import { 
+    AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+    BarChart, Bar, Legend, Cell
+} from 'recharts';
+
+interface Post {
+    id: number;
+    title: string;
+    status: 'published' | 'draft';
+    published_at: string;
+    views: number;
+    category: { name: string } | null;
+    author: { name: string };
+}
+
+interface User {
+    id: number;
+    name: string;
+    email: string;
+    is_admin: boolean;
+    created_at: string;
+}
+
+interface CategoryStat {
+    name: string;
+    posts_count: number;
+    total_views: number;
+}
+
 interface DashboardProps {
     stats: {
         total_users: number;
@@ -48,9 +80,14 @@ interface DashboardProps {
         post: string;
         created_at: string;
     }>;
+    chart_data: Array<{
+        date: string;
+        views: number;
+        users: number;
+    }>;
 }
 
-export default function Dashboard({ stats, recent_posts, popular_posts, recent_users, category_stats, recent_activity }: DashboardProps) {
+export default function Dashboard({ stats, recent_posts, popular_posts, recent_users, category_stats, recent_activity, chart_data }: DashboardProps) {
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('en-US', {
             month: 'short',
@@ -117,6 +154,99 @@ export default function Dashboard({ stats, recent_posts, popular_posts, recent_u
                             }
                             colorClass="bg-purple-500"
                         />
+                    </div>
+
+                    {/* Analytics Charts */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                        <div className="lg:col-span-2 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                            <div className="flex items-center justify-between mb-6">
+                                <div>
+                                    <h3 className="text-lg font-bold text-gray-900">Traffic Overview</h3>
+                                    <p className="text-sm text-gray-500">Post views over the last 14 days</p>
+                                </div>
+                                <div className="flex items-center space-x-2 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                                    <span className="h-3 w-3 rounded-full bg-blue-500"></span>
+                                    <span>Views</span>
+                                </div>
+                            </div>
+                            <div className="h-80 w-full">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <AreaChart data={chart_data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                                        <defs>
+                                            <linearGradient id="colorViews" x1="0" y1="0" x2="0" y2="1">
+                                                <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.1}/>
+                                                <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                                            </linearGradient>
+                                        </defs>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
+                                        <XAxis 
+                                            dataKey="date" 
+                                            axisLine={false} 
+                                            tickLine={false} 
+                                            tick={{ fill: '#9ca3af', fontSize: 10, fontWeight: 700 }} 
+                                            dy={10}
+                                        />
+                                        <YAxis 
+                                            axisLine={false} 
+                                            tickLine={false} 
+                                            tick={{ fill: '#9ca3af', fontSize: 10, fontWeight: 700 }}
+                                        />
+                                        <Tooltip 
+                                            contentStyle={{ backgroundColor: '#fff', borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                                            itemStyle={{ fontSize: '12px', fontWeight: 900, color: '#1f2937' }}
+                                        />
+                                        <Area 
+                                            type="monotone" 
+                                            dataKey="views" 
+                                            stroke="#3b82f6" 
+                                            strokeWidth={3} 
+                                            fillOpacity={1} 
+                                            fill="url(#colorViews)" 
+                                            animationDuration={1500}
+                                        />
+                                    </AreaChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </div>
+
+                        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                            <div className="flex items-center justify-between mb-6">
+                                <div>
+                                    <h3 className="text-lg font-bold text-gray-900">New Members</h3>
+                                    <p className="text-sm text-gray-500">Registrations (14d)</p>
+                                </div>
+                                <div className="p-2 bg-green-50 rounded-md text-green-600">
+                                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div className="h-80 w-full">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart data={chart_data} margin={{ top: 10, right: 0, left: -25, bottom: 0 }}>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
+                                        <XAxis 
+                                            dataKey="date" 
+                                            axisLine={false} 
+                                            tickLine={false} 
+                                            tick={{ fill: '#9ca3af', fontSize: 10, fontWeight: 700 }}
+                                            dy={10}
+                                        />
+                                        <YAxis 
+                                            axisLine={false} 
+                                            tickLine={false} 
+                                            tick={{ fill: '#9ca3af', fontSize: 10, fontWeight: 700 }}
+                                        />
+                                        <Tooltip 
+                                            cursor={{ fill: '#f9fafb' }}
+                                            contentStyle={{ backgroundColor: '#fff', borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                                            itemStyle={{ fontSize: '12px', fontWeight: 900, color: '#10b981' }}
+                                        />
+                                        <Bar dataKey="users" fill="#10b981" radius={[4, 4, 0, 0]} barSize={12} animationDuration={1500} />
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">

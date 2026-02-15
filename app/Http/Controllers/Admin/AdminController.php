@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Like;
 use App\Models\Post;
+use App\Models\ReadingHistory;
 use App\Models\Tag;
 use App\Models\User;
-use App\Models\Like;
-use App\Models\ReadingHistory;
 use Inertia\Inertia;
 
 class AdminController extends Controller
@@ -60,7 +60,7 @@ class AdminController extends Controller
             ->get()
             ->map(function ($like) {
                 return [
-                    'id' => 'like_' . $like->id,
+                    'id' => 'like_'.$like->id,
                     'type' => 'like',
                     'user' => $like->user->name,
                     'post' => $like->post->title,
@@ -75,7 +75,7 @@ class AdminController extends Controller
             ->get()
             ->map(function ($read) {
                 return [
-                    'id' => 'read_' . $read->id,
+                    'id' => 'read_'.$read->id,
                     'type' => 'read',
                     'user' => $read->user->name,
                     'post' => $read->post->title,
@@ -89,6 +89,29 @@ class AdminController extends Controller
             ->take(10)
             ->values();
 
+        // Chart data for last 14 days
+        $days = collect(range(13, 0))->map(function ($i) {
+            return now()->subDays($i)->toDateString();
+        });
+
+        $views_by_day = \App\Models\PostView::where('view_date', '>=', now()->subDays(13)->toDateString())
+            ->groupBy('view_date')
+            ->selectRaw('view_date, sum(count) as total')
+            ->pluck('total', 'view_date');
+
+        $users_by_day = User::where('created_at', '>=', now()->subDays(13)->startOfDay())
+            ->groupBy(\Illuminate\Support\Facades\DB::raw('DATE(created_at)'))
+            ->selectRaw('DATE(created_at) as date, count(*) as total')
+            ->pluck('total', 'date');
+
+        $chart_data = $days->map(function ($date) use ($views_by_day, $users_by_day) {
+            return [
+                'date' => \Carbon\Carbon::parse($date)->format('M d'),
+                'views' => (int) $views_by_day->get($date, 0),
+                'users' => (int) $users_by_day->get($date, 0),
+            ];
+        });
+
         return Inertia::render('Admin/Dashboard', [
             'stats' => $stats,
             'recent_posts' => $recent_posts,
@@ -96,6 +119,7 @@ class AdminController extends Controller
             'recent_users' => $recent_users,
             'category_stats' => $category_stats,
             'recent_activity' => $recent_activity,
+            'chart_data' => $chart_data,
         ]);
     }
 }

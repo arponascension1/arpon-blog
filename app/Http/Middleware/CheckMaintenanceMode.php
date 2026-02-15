@@ -32,13 +32,13 @@ class CheckMaintenanceMode
 
         // Maintenance mode is ON.
         // Skip maintenance check for admin routes and auth/login routes
-        if ($request->is('admin*') || 
-            $request->is('login') || 
-            $request->is('logout') || 
-            $request->is('register') || 
-            $request->is('forgot-password') || 
-            $request->is('reset-password*') || 
-            $request->is('verify-email*') || 
+        if ($request->is('admin*') ||
+            $request->is('login') ||
+            $request->is('logout') ||
+            $request->is('register') ||
+            $request->is('forgot-password') ||
+            $request->is('reset-password*') ||
+            $request->is('verify-email*') ||
             $request->is('confirm-password*') ||
             $request->is('password') ||
             $request->is('email/verification-notification') ||

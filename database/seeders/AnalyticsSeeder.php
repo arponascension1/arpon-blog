@@ -28,13 +28,13 @@ class AnalyticsSeeder extends Seeder
         foreach ($posts as $post) {
             // Randomly decide how popular this post is
             $baseViews = rand(10, 500);
-            
+
             for ($i = 0; $i <= 30; $i++) {
                 $date = (clone $today)->subDays($i)->toDateString();
-                
+
                 // Random variance in daily views
                 $dailyCount = rand(max(1, $baseViews - 5), $baseViews + 20);
-                
+
                 PostView::create([
                     'post_id' => $post->id,
                     'view_date' => $date,

@@ -1,11 +1,11 @@
 import { jsxs, jsx } from "react/jsx-runtime";
 import React, { useState, useEffect } from "react";
 import { router, Head, Link } from "@inertiajs/react";
-import { A as AdminLayout } from "./AdminLayout-DmLr14pk.js";
+import { A as AdminLayout } from "./AdminLayout-DomSls0d.js";
 import { P as Pagination, C as ConfirmationModal } from "./ConfirmationModal-DilHsETS.js";
 import { S as SearchSelect } from "./SearchSelect-Bb7X9Dja.js";
-import "axios";
 import "@headlessui/react";
+import "axios";
 import "./Modal-B-IxVM06.js";
 import "./DangerButton-B7to2Tbx.js";
 function Index({ posts, categories, filters, sort }) {
@@ -116,32 +116,35 @@ function Index({ posts, categories, filters, sort }) {
           }
         ) })
       ] }),
-      /* @__PURE__ */ jsx("div", { className: "bg-white shadow-sm rounded-lg mb-6", children: /* @__PURE__ */ jsx("div", { className: "px-4 py-5 sm:p-6", children: /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row gap-4", children: [
-        /* @__PURE__ */ jsx("div", { className: "flex-1", children: /* @__PURE__ */ jsx(
-          "input",
-          {
-            type: "text",
-            placeholder: "Search posts...",
-            value: searchTerm,
-            onChange: (e) => setSearchTerm(e.target.value),
-            className: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
-          }
-        ) }),
-        /* @__PURE__ */ jsx("div", { className: "sm:w-64", children: /* @__PURE__ */ jsx(
+      /* @__PURE__ */ jsx("div", { className: "bg-white shadow-sm rounded-2xl border border-gray-100 mb-6 overflow-hidden", children: /* @__PURE__ */ jsx("div", { className: "px-4 py-5 sm:p-6 bg-white", children: /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 sm:grid-cols-12 gap-4", children: [
+        /* @__PURE__ */ jsx("div", { className: "sm:col-span-6 lg:col-span-7", children: /* @__PURE__ */ jsxs("div", { className: "relative group", children: [
+          /* @__PURE__ */ jsx("div", { className: "absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none", children: /* @__PURE__ */ jsx("svg", { className: "h-4 w-4 text-gray-400 group-focus-within:text-blue-500 transition-colors", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsx("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "2", d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" }) }) }),
+          /* @__PURE__ */ jsx(
+            "input",
+            {
+              type: "text",
+              placeholder: "Search posts...",
+              value: searchTerm,
+              onChange: (e) => setSearchTerm(e.target.value),
+              className: "block w-full pl-10 pr-3 py-2 border-gray-200 bg-gray-50/50 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 sm:text-sm transition-all"
+            }
+          )
+        ] }) }),
+        /* @__PURE__ */ jsx("div", { className: "sm:col-span-3 lg:col-span-3", children: /* @__PURE__ */ jsx(
           SearchSelect,
           {
             options: [{ id: "", name: "All Categories" }, ...categories],
             value: categoryFilter,
             onChange: (value) => setCategoryFilter(value.toString()),
-            placeholder: "Search categories..."
+            placeholder: "Category..."
           }
         ) }),
-        /* @__PURE__ */ jsx("div", { className: "sm:w-48", children: /* @__PURE__ */ jsxs(
+        /* @__PURE__ */ jsx("div", { className: "sm:col-span-3 lg:col-span-2", children: /* @__PURE__ */ jsxs(
           "select",
           {
             value: statusFilter,
             onChange: (e) => setStatusFilter(e.target.value),
-            className: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm",
+            className: "block w-full border-gray-200 bg-gray-50/50 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 sm:text-sm transition-all",
             children: [
               /* @__PURE__ */ jsx("option", { value: "", children: "All Status" }),
               /* @__PURE__ */ jsx("option", { value: "draft", children: "Draft" }),
@@ -151,14 +154,14 @@ function Index({ posts, categories, filters, sort }) {
           }
         ) })
       ] }) }) }),
-      /* @__PURE__ */ jsxs("div", { className: "bg-white shadow-sm rounded-lg", children: [
-        /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "min-w-full divide-y divide-gray-200", children: [
-          /* @__PURE__ */ jsx("thead", { className: "bg-gray-50", children: /* @__PURE__ */ jsxs("tr", { children: [
+      /* @__PURE__ */ jsxs("div", { className: "bg-white shadow-sm rounded-2xl border border-gray-100 overflow-hidden", children: [
+        /* @__PURE__ */ jsx("div", { className: "overflow-x-auto", children: /* @__PURE__ */ jsxs("table", { className: "min-w-full divide-y divide-gray-100", children: [
+          /* @__PURE__ */ jsx("thead", { className: "bg-gray-50/50", children: /* @__PURE__ */ jsxs("tr", { children: [
             /* @__PURE__ */ jsx(
               "th",
               {
                 scope: "col",
-                className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100",
+                className: "px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest cursor-pointer hover:bg-gray-100 transition-colors",
                 onClick: () => handleSort("title"),
                 children: /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-1", children: [
                   /* @__PURE__ */ jsx("span", { children: "Title" }),
@@ -166,13 +169,13 @@ function Index({ posts, categories, filters, sort }) {
                 ] })
               }
             ),
-            /* @__PURE__ */ jsx("th", { scope: "col", className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider", children: "Category" }),
-            /* @__PURE__ */ jsx("th", { scope: "col", className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider", children: "Status" }),
+            /* @__PURE__ */ jsx("th", { scope: "col", className: "px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest", children: "Category" }),
+            /* @__PURE__ */ jsx("th", { scope: "col", className: "px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest", children: "Status" }),
             /* @__PURE__ */ jsx(
               "th",
               {
                 scope: "col",
-                className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100",
+                className: "px-6 py-4 text-left text-[10px] font-black text-gray-400 uppercase tracking-widest cursor-pointer hover:bg-gray-100 transition-colors",
                 onClick: () => handleSort("created_at"),
                 children: /* @__PURE__ */ jsxs("div", { className: "flex items-center space-x-1", children: [
                   /* @__PURE__ */ jsx("span", { children: "Date" }),
@@ -180,41 +183,46 @@ function Index({ posts, categories, filters, sort }) {
                 ] })
               }
             ),
-            /* @__PURE__ */ jsx("th", { scope: "col", className: "px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider", children: "Actions" })
+            /* @__PURE__ */ jsx("th", { scope: "col", className: "px-6 py-4 text-right text-[10px] font-black text-gray-400 uppercase tracking-widest", children: "Actions" })
           ] }) }),
-          /* @__PURE__ */ jsx("tbody", { className: "bg-white divide-y divide-gray-200", children: posts.data.map((post) => /* @__PURE__ */ jsxs("tr", { className: "hover:bg-gray-50", children: [
-            /* @__PURE__ */ jsx("td", { className: "px-6 py-4", children: /* @__PURE__ */ jsxs("div", { className: "flex items-center", children: [
-              post.featured_image && /* @__PURE__ */ jsx("div", { className: "flex-shrink-0 h-10 w-16 mr-4", children: /* @__PURE__ */ jsx("img", { src: post.featured_image, alt: "", className: "h-full w-full rounded object-cover" }) }),
-              /* @__PURE__ */ jsxs("div", { children: [
-                /* @__PURE__ */ jsx("div", { className: "text-sm font-medium text-gray-900 line-clamp-1", children: post.title }),
-                /* @__PURE__ */ jsxs("div", { className: "text-xs text-gray-500", children: [
-                  "By ",
-                  post.author?.name
+          /* @__PURE__ */ jsxs("tbody", { className: "bg-white divide-y divide-gray-50", children: [
+            posts.data.map((post) => /* @__PURE__ */ jsxs("tr", { className: "hover:bg-gray-50/50 transition-colors group", children: [
+              /* @__PURE__ */ jsx("td", { className: "px-6 py-4", children: /* @__PURE__ */ jsxs("div", { className: "flex items-center", children: [
+                post.featured_image && /* @__PURE__ */ jsx("div", { className: "flex-shrink-0 h-10 w-14 mr-4", children: /* @__PURE__ */ jsx("img", { src: post.featured_image, alt: "", className: "h-full w-full rounded-lg object-cover shadow-sm" }) }),
+                /* @__PURE__ */ jsxs("div", { className: "min-w-0", children: [
+                  /* @__PURE__ */ jsx("div", { className: "text-sm font-bold text-gray-900 line-clamp-1 group-hover:text-blue-600 transition-colors", children: post.title }),
+                  /* @__PURE__ */ jsxs("div", { className: "text-[10px] font-bold text-gray-400 uppercase tracking-tight", children: [
+                    "By ",
+                    post.author?.name
+                  ] })
                 ] })
-              ] })
-            ] }) }),
-            /* @__PURE__ */ jsx("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: post.category?.name || "-" }),
-            /* @__PURE__ */ jsx("td", { className: "px-6 py-4 whitespace-nowrap", children: getStatusBadge(post.status) }),
-            /* @__PURE__ */ jsx("td", { className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500", children: new Date(post.published_at || post.created_at).toLocaleDateString() }),
-            /* @__PURE__ */ jsx("td", { className: "px-6 py-4 whitespace-nowrap text-right text-sm font-medium", children: /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-end space-x-2", children: [
-              /* @__PURE__ */ jsx(
-                Link,
-                {
-                  href: `/admin/posts/${post.id}/edit`,
-                  className: "text-indigo-600 hover:text-indigo-900",
-                  children: "Edit"
-                }
-              ),
-              /* @__PURE__ */ jsx(
-                "button",
-                {
-                  onClick: () => setPostToDelete(post),
-                  className: "text-red-600 hover:text-red-900",
-                  children: "Delete"
-                }
-              )
-            ] }) })
-          ] }, post.id)) })
+              ] }) }),
+              /* @__PURE__ */ jsx("td", { className: "px-6 py-4 whitespace-nowrap", children: /* @__PURE__ */ jsx("span", { className: "text-xs font-semibold text-gray-600 bg-gray-100 px-2 py-1 rounded-md", children: post.category?.name || "Uncategorized" }) }),
+              /* @__PURE__ */ jsx("td", { className: "px-6 py-4 whitespace-nowrap", children: getStatusBadge(post.status) }),
+              /* @__PURE__ */ jsx("td", { className: "px-6 py-4 whitespace-nowrap text-xs font-bold text-gray-500 uppercase", children: new Date(post.published_at || post.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) }),
+              /* @__PURE__ */ jsx("td", { className: "px-6 py-4 whitespace-nowrap text-right text-sm font-medium", children: /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-end space-x-3", children: [
+                /* @__PURE__ */ jsx(
+                  Link,
+                  {
+                    href: `/admin/posts/${post.id}/edit`,
+                    className: "text-blue-600 hover:text-blue-700 p-1.5 hover:bg-blue-50 rounded-lg transition-all",
+                    title: "Edit Post",
+                    children: /* @__PURE__ */ jsx("svg", { className: "w-4 h-4", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsx("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "2", d: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" }) })
+                  }
+                ),
+                /* @__PURE__ */ jsx(
+                  "button",
+                  {
+                    onClick: () => setPostToDelete(post),
+                    className: "text-red-500 hover:text-red-600 p-1.5 hover:bg-red-50 rounded-lg transition-all",
+                    title: "Delete Post",
+                    children: /* @__PURE__ */ jsx("svg", { className: "w-4 h-4", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", children: /* @__PURE__ */ jsx("path", { strokeLinecap: "round", strokeLinejoin: "round", strokeWidth: "2", d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" }) })
+                  }
+                )
+              ] }) })
+            ] }, post.id)),
+            posts.data.length === 0 && /* @__PURE__ */ jsx("tr", { children: /* @__PURE__ */ jsx("td", { colSpan: 5, className: "px-6 py-12 text-center text-gray-500 italic", children: "No posts found matching your criteria." }) })
+          ] })
         ] }) }),
         /* @__PURE__ */ jsx(
           Pagination,

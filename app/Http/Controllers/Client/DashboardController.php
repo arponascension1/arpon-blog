@@ -23,7 +23,7 @@ class DashboardController extends Controller
             ->get()
             ->map(function ($like) {
                 return [
-                    'id' => 'like_' . $like->id,
+                    'id' => 'like_'.$like->id,
                     'type' => 'like',
                     'post' => [
                         'title' => $like->post->title,
@@ -42,7 +42,7 @@ class DashboardController extends Controller
             ->get()
             ->map(function ($read) {
                 return [
-                    'id' => 'read_' . $read->id,
+                    'id' => 'read_'.$read->id,
                     'type' => 'read',
                     'post' => [
                         'title' => $read->post->title,

@@ -1,13 +1,13 @@
 import { jsxs, jsx } from "react/jsx-runtime";
 import { useEffect } from "react";
 import { useForm, Head, Link } from "@inertiajs/react";
-import { A as AdminLayout } from "./AdminLayout-DmLr14pk.js";
+import { A as AdminLayout } from "./AdminLayout-DomSls0d.js";
 import { I as InputError, a as InputLabel, T as TextInput } from "./TextInput-Cpd-jkNw.js";
 import { P as PrimaryButton } from "./PrimaryButton-DgVfVBwo.js";
 import { M as MediaPicker } from "./MediaPicker-B2RzXcBl.js";
 import { S as SearchSelect } from "./SearchSelect-Bb7X9Dja.js";
-import "axios";
 import "@headlessui/react";
+import "axios";
 import "./Modal-B-IxVM06.js";
 import "./Dropdown-CbnvImCK.js";
 function Create({ parentCategories }) {

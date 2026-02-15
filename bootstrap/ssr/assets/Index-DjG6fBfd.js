@@ -1,10 +1,10 @@
 import { jsxs, jsx } from "react/jsx-runtime";
 import { useState, useEffect } from "react";
-import { A as AdminLayout } from "./AdminLayout-DmLr14pk.js";
+import { A as AdminLayout } from "./AdminLayout-DomSls0d.js";
 import { Head, Link } from "@inertiajs/react";
 import { ResponsiveContainer, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area, PieChart, Pie, Cell, BarChart, Bar } from "recharts";
-import "axios";
 import "@headlessui/react";
+import "axios";
 const COLORS = ["#3B82F6", "#10B981", "#8B5CF6", "#F59E0B", "#EF4444", "#EC4899", "#06B6D4"];
 function Index({ daily_views, category_views, top_posts, stats }) {
   const [isClient, setIsClient] = useState(false);

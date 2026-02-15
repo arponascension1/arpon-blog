@@ -10,9 +10,11 @@
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         @if(isset($settings['site_favicon']) && $settings['site_favicon'])
-            <link rel="icon" type="image/x-icon" href="{{ $settings['site_favicon'] }}">
+            <link rel="icon" href="{{ $settings['site_favicon'] }}?v={{ md5($settings['site_favicon']) }}">
+        @elseif(isset($settings['site_logo']) && $settings['site_logo'])
+            <link rel="icon" href="{{ $settings['site_logo'] }}?v={{ md5($settings['site_logo']) }}">
         @else
-            <link rel="icon" type="image/x-icon" href="/favicon.ico">
+            <link rel="icon" type="image/x-icon" href="/favicon.ico?v={{ time() }}">
         @endif
 
         @if(isset($settings['site_description']))

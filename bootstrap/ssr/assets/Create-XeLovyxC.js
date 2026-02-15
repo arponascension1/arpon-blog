@@ -1,33 +1,30 @@
 import { jsxs, jsx } from "react/jsx-runtime";
-import { A as AdminLayout } from "./AdminLayout-DmLr14pk.js";
+import { A as AdminLayout } from "./AdminLayout-DomSls0d.js";
 import { useForm, Head, Link } from "@inertiajs/react";
 import { M as MediaPicker } from "./MediaPicker-B2RzXcBl.js";
 import "react";
-import "axios";
 import "@headlessui/react";
+import "axios";
 import "./Modal-B-IxVM06.js";
 import "./PrimaryButton-DgVfVBwo.js";
 import "./Dropdown-CbnvImCK.js";
-function Edit({ user }) {
-  const { data, setData, patch, processing, errors } = useForm({
-    name: user.name,
-    email: user.email,
-    avatar: user.avatar || "",
+function Create() {
+  const { data, setData, post, processing, errors, reset } = useForm({
+    name: "",
+    email: "",
+    avatar: "",
     password: "",
     password_confirmation: "",
-    is_admin: user.is_admin
+    is_admin: false
   });
   const handleSubmit = (e) => {
     e.preventDefault();
-    patch(route("admin.users.update", user.id), {
-      onSuccess: () => {
-        setData("password", "");
-        setData("password_confirmation", "");
-      }
+    post(route("admin.users.store"), {
+      onSuccess: () => reset()
     });
   };
   return /* @__PURE__ */ jsxs(AdminLayout, { children: [
-    /* @__PURE__ */ jsx(Head, { title: "Edit User" }),
+    /* @__PURE__ */ jsx(Head, { title: "Create User" }),
     /* @__PURE__ */ jsx("div", { className: "py-6", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: [
       /* @__PURE__ */ jsxs("div", { className: "mb-8", children: [
         /* @__PURE__ */ jsx("div", { className: "flex items-center mb-4", children: /* @__PURE__ */ jsxs(
@@ -41,8 +38,8 @@ function Edit({ user }) {
             ]
           }
         ) }),
-        /* @__PURE__ */ jsx("h1", { className: "text-2xl font-bold text-gray-900", children: "Edit User" }),
-        /* @__PURE__ */ jsx("p", { className: "mt-1 text-sm text-gray-600", children: "Update user information and permissions" })
+        /* @__PURE__ */ jsx("h1", { className: "text-2xl font-bold text-gray-900", children: "Create New User" }),
+        /* @__PURE__ */ jsx("p", { className: "mt-1 text-sm text-gray-600", children: "Add a new user to the system" })
       ] }),
       /* @__PURE__ */ jsx("div", { className: "bg-white shadow-sm rounded-lg", children: /* @__PURE__ */ jsxs("form", { onSubmit: handleSubmit, className: "p-6 space-y-6", children: [
         /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row gap-6", children: [
@@ -92,7 +89,7 @@ function Edit({ user }) {
             ] }),
             /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 gap-6 sm:grid-cols-2", children: [
               /* @__PURE__ */ jsxs("div", { children: [
-                /* @__PURE__ */ jsx("label", { htmlFor: "password", className: "block text-sm font-medium text-gray-700", children: "New Password" }),
+                /* @__PURE__ */ jsx("label", { htmlFor: "password", className: "block text-sm font-medium text-gray-700", children: "Password" }),
                 /* @__PURE__ */ jsx(
                   "input",
                   {
@@ -101,13 +98,13 @@ function Edit({ user }) {
                     value: data.password,
                     onChange: (e) => setData("password", e.target.value),
                     className: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm",
-                    placeholder: "Leave empty to keep current password"
+                    required: true
                   }
                 ),
                 errors.password && /* @__PURE__ */ jsx("p", { className: "mt-2 text-sm text-red-600", children: errors.password })
               ] }),
               /* @__PURE__ */ jsxs("div", { children: [
-                /* @__PURE__ */ jsx("label", { htmlFor: "password_confirmation", className: "block text-sm font-medium text-gray-700", children: "Confirm New Password" }),
+                /* @__PURE__ */ jsx("label", { htmlFor: "password_confirmation", className: "block text-sm font-medium text-gray-700", children: "Confirm Password" }),
                 /* @__PURE__ */ jsx(
                   "input",
                   {
@@ -116,7 +113,7 @@ function Edit({ user }) {
                     value: data.password_confirmation,
                     onChange: (e) => setData("password_confirmation", e.target.value),
                     className: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm",
-                    placeholder: "Leave empty to keep current password"
+                    required: true
                   }
                 ),
                 errors.password_confirmation && /* @__PURE__ */ jsx("p", { className: "mt-2 text-sm text-red-600", children: errors.password_confirmation })
@@ -137,27 +134,6 @@ function Edit({ user }) {
             ] })
           ] })
         ] }),
-        /* @__PURE__ */ jsxs("div", { className: "bg-gray-50 p-4 rounded-md", children: [
-          /* @__PURE__ */ jsx("h3", { className: "text-sm font-medium text-gray-900 mb-2", children: "User Information" }),
-          /* @__PURE__ */ jsxs("dl", { className: "grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2 text-sm", children: [
-            /* @__PURE__ */ jsxs("div", { children: [
-              /* @__PURE__ */ jsx("dt", { className: "font-medium text-gray-500", children: "User ID" }),
-              /* @__PURE__ */ jsx("dd", { className: "text-gray-900", children: user.id })
-            ] }),
-            /* @__PURE__ */ jsxs("div", { children: [
-              /* @__PURE__ */ jsx("dt", { className: "font-medium text-gray-500", children: "Joined" }),
-              /* @__PURE__ */ jsx("dd", { className: "text-gray-900", children: new Date(user.created_at).toLocaleDateString() })
-            ] }),
-            /* @__PURE__ */ jsxs("div", { children: [
-              /* @__PURE__ */ jsx("dt", { className: "font-medium text-gray-500", children: "Email Verified" }),
-              /* @__PURE__ */ jsx("dd", { className: "text-gray-900", children: user.email_verified_at ? "Yes" : "No" })
-            ] }),
-            /* @__PURE__ */ jsxs("div", { children: [
-              /* @__PURE__ */ jsx("dt", { className: "font-medium text-gray-500", children: "Last Updated" }),
-              /* @__PURE__ */ jsx("dd", { className: "text-gray-900", children: new Date(user.updated_at).toLocaleDateString() })
-            ] })
-          ] })
-        ] }),
         /* @__PURE__ */ jsxs("div", { className: "flex justify-end space-x-3 pt-4 border-t border-gray-200", children: [
           /* @__PURE__ */ jsx(
             Link,
@@ -173,7 +149,7 @@ function Edit({ user }) {
               type: "submit",
               disabled: processing,
               className: "px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50",
-              children: processing ? "Updating..." : "Update User"
+              children: processing ? "Creating..." : "Create User"
             }
           )
         ] })
@@ -182,5 +158,5 @@ function Edit({ user }) {
   ] });
 }
 export {
-  Edit as default
+  Create as default
 };

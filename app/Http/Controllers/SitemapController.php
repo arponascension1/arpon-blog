@@ -41,7 +41,7 @@ class SitemapController extends Controller
         $content .= "Disallow: /admin\n";
         $content .= "Disallow: /login\n";
         $content .= "Disallow: /register\n\n";
-        $content .= "Sitemap: " . url('/sitemap.xml') . "\n";
+        $content .= 'Sitemap: '.url('/sitemap.xml')."\n";
 
         return response($content, 200)
             ->header('Content-Type', 'text/plain');

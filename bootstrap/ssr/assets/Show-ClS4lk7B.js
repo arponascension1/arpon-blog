@@ -1,9 +1,9 @@
 import { jsxs, jsx } from "react/jsx-runtime";
-import { A as AdminLayout } from "./AdminLayout-DmLr14pk.js";
+import { A as AdminLayout } from "./AdminLayout-DomSls0d.js";
 import { Head, Link } from "@inertiajs/react";
 import "react";
-import "axios";
 import "@headlessui/react";
+import "axios";
 function Show({ user, activities }) {
   return /* @__PURE__ */ jsxs(AdminLayout, { children: [
     /* @__PURE__ */ jsx(Head, { title: `User: ${user.name}` }),

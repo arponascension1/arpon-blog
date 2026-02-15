@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
-use App\Models\Post;
 use App\Models\Like;
-use Illuminate\Http\Request;
+use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 
 class PostLikeController extends Controller
@@ -18,8 +17,8 @@ class PostLikeController extends Controller
         $user = Auth::user();
 
         $like = Like::where('user_id', $user->id)
-                    ->where('post_id', $post->id)
-                    ->first();
+            ->where('post_id', $post->id)
+            ->first();
 
         if ($like) {
             $like->delete();

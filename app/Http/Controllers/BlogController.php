@@ -153,10 +153,10 @@ class BlogController extends Controller
         }
 
         // Increment views if not already viewed in this session
-        $viewedSessionKey = 'viewed_post_' . $post->id;
-        if (!session()->has($viewedSessionKey)) {
+        $viewedSessionKey = 'viewed_post_'.$post->id;
+        if (! session()->has($viewedSessionKey)) {
             $post->increment('views');
-            
+
             // Track daily views
             \App\Models\PostView::updateOrCreate(
                 ['post_id' => $post->id, 'view_date' => now()->toDateString()],

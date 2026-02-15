@@ -1,9 +1,9 @@
 import { jsxs, jsx } from "react/jsx-runtime";
 import { Head, Link } from "@inertiajs/react";
-import { A as AdminLayout } from "./AdminLayout-DmLr14pk.js";
+import { A as AdminLayout } from "./AdminLayout-DomSls0d.js";
 import "react";
-import "axios";
 import "@headlessui/react";
+import "axios";
 function Show({ tag }) {
   return /* @__PURE__ */ jsxs(AdminLayout, { children: [
     /* @__PURE__ */ jsx(Head, { title: `Tag Details: ${tag.name}` }),

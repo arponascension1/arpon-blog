@@ -1,33 +1,32 @@
 import { jsxs, jsx } from "react/jsx-runtime";
-import { useEffect } from "react";
 import { useForm, Head, Link } from "@inertiajs/react";
-import { A as AdminLayout } from "./AdminLayout-DmLr14pk.js";
+import { A as AdminLayout } from "./AdminLayout-DomSls0d.js";
 import { a as InputLabel, T as TextInput, I as InputError } from "./TextInput-Cpd-jkNw.js";
 import { P as PrimaryButton } from "./PrimaryButton-DgVfVBwo.js";
-import "axios";
+import "react";
 import "@headlessui/react";
-function Create() {
-  const { data, setData, post, processing, errors } = useForm({
-    name: "",
-    slug: "",
-    meta_title: "",
-    meta_description: ""
+import "axios";
+function Edit({ tag }) {
+  const { data, setData, put, processing, errors } = useForm({
+    name: tag.name,
+    slug: tag.slug,
+    meta_title: tag.meta_title || "",
+    meta_description: tag.meta_description || ""
   });
-  useEffect(() => {
-    const slug = data.name.toLowerCase().replace(/[^\w ]+/g, "").replace(/ +/g, "-");
-    setData("slug", slug);
-  }, [data.name]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    post("/admin/tags");
+    put(`/admin/tags/${tag.id}`);
   };
   return /* @__PURE__ */ jsxs(AdminLayout, { children: [
-    /* @__PURE__ */ jsx(Head, { title: "Create Tag" }),
+    /* @__PURE__ */ jsx(Head, { title: `Edit Tag: ${tag.name}` }),
     /* @__PURE__ */ jsx("div", { className: "py-6", children: /* @__PURE__ */ jsxs("div", { className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8", children: [
       /* @__PURE__ */ jsxs("div", { className: "mb-6 flex justify-between items-center", children: [
         /* @__PURE__ */ jsxs("div", { children: [
-          /* @__PURE__ */ jsx("h1", { className: "text-2xl font-bold text-gray-900", children: "Create Tag" }),
-          /* @__PURE__ */ jsx("p", { className: "mt-1 text-sm text-gray-600", children: "Add a new tag for your blog posts" })
+          /* @__PURE__ */ jsxs("h1", { className: "text-2xl font-bold text-gray-900", children: [
+            "Edit Tag: ",
+            tag.name
+          ] }),
+          /* @__PURE__ */ jsx("p", { className: "mt-1 text-sm text-gray-600", children: "Update tag details and SEO settings" })
         ] }),
         /* @__PURE__ */ jsx(
           Link,
@@ -85,9 +84,8 @@ function Create() {
                   id: "meta_title",
                   type: "text",
                   className: "mt-1 block w-full",
-                  value: data.meta_title || "",
-                  onChange: (e) => setData("meta_title", e.target.value),
-                  placeholder: "If empty, tag name will be used"
+                  value: data.meta_title,
+                  onChange: (e) => setData("meta_title", e.target.value)
                 }
               ),
               /* @__PURE__ */ jsx(InputError, { message: errors.meta_title, className: "mt-2" })
@@ -100,7 +98,7 @@ function Create() {
                   id: "meta_description",
                   className: "mt-1 block w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm",
                   rows: 2,
-                  value: data.meta_description || "",
+                  value: data.meta_description,
                   onChange: (e) => setData("meta_description", e.target.value)
                 }
               ),
@@ -108,11 +106,11 @@ function Create() {
             ] })
           ] })
         ] }),
-        /* @__PURE__ */ jsx("div", { className: "flex justify-end", children: /* @__PURE__ */ jsx(PrimaryButton, { disabled: processing, children: "Create Tag" }) })
+        /* @__PURE__ */ jsx("div", { className: "flex justify-end space-x-3", children: /* @__PURE__ */ jsx(PrimaryButton, { disabled: processing, children: "Update Tag" }) })
       ] })
     ] }) })
   ] });
 }
 export {
-  Create as default
+  Edit as default
 };

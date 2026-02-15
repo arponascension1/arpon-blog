@@ -87,7 +87,7 @@ class UserController extends Controller
             ->get()
             ->map(function ($like) {
                 return [
-                    'id' => 'like_' . $like->id,
+                    'id' => 'like_'.$like->id,
                     'type' => 'like',
                     'description' => "Liked post: {$like->post->title}",
                     'created_at' => $like->created_at->format('M d, Y H:i'),
@@ -102,7 +102,7 @@ class UserController extends Controller
             ->get()
             ->map(function ($read) {
                 return [
-                    'id' => 'read_' . $read->id,
+                    'id' => 'read_'.$read->id,
                     'type' => 'read',
                     'description' => "Read post: {$read->post->title}",
                     'created_at' => $read->updated_at->format('M d, Y H:i'),

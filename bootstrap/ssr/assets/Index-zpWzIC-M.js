@@ -1,10 +1,10 @@
 import { jsxs, jsx } from "react/jsx-runtime";
 import React, { useState, useEffect } from "react";
 import { router, Head, Link } from "@inertiajs/react";
-import { A as AdminLayout } from "./AdminLayout-DmLr14pk.js";
+import { A as AdminLayout } from "./AdminLayout-DomSls0d.js";
 import { P as Pagination, C as ConfirmationModal } from "./ConfirmationModal-DilHsETS.js";
-import "axios";
 import "@headlessui/react";
+import "axios";
 import "./Modal-B-IxVM06.js";
 import "./DangerButton-B7to2Tbx.js";
 function Index({ tags, filters, sort }) {

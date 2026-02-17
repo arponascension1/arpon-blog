@@ -54,6 +54,11 @@ class MediaController extends Controller
 
         $items = $directories->concat($files);
 
+        // Filter out hidden files (starting with dot)
+        $items = $items->filter(function ($item) {
+            return ! str_starts_with($item['name'], '.');
+        });
+
         // Filter by search
         if ($search) {
             $items = $items->filter(function ($item) use ($search) {
@@ -291,6 +296,11 @@ class MediaController extends Controller
         });
 
         $items = $directories->concat($files);
+
+        // Filter out hidden files (starting with dot)
+        $items = $items->filter(function ($item) {
+            return ! str_starts_with($item['name'], '.');
+        });
 
         if ($search) {
             $items = $items->filter(function ($item) use ($search) {

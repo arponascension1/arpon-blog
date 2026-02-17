@@ -18,6 +18,10 @@
                 <name>{{ $post->author->name }}</name>
             </author>
             <summary type="html">{{ $post->excerpt }}</summary>
+            <content type="html"><![CDATA[{!! $post->content !!}]]></content>
+            @if($post->category)
+                <category term="{{ $post->category->slug }}" label="{{ $post->category->name }}" />
+            @endif
             <updated>{{ $post->updated_at->toAtomString() }}</updated>
         </entry>
     @endforeach

@@ -18,6 +18,10 @@
                 <name><?php echo e($post->author->name); ?></name>
             </author>
             <summary type="html"><?php echo e($post->excerpt); ?></summary>
+            <content type="html"><![CDATA[<?php echo $post->content; ?>]]></content>
+            <?php if($post->category): ?>
+                <category term="<?php echo e($post->category->slug); ?>" label="<?php echo e($post->category->name); ?>" />
+            <?php endif; ?>
             <updated><?php echo e($post->updated_at->toAtomString()); ?></updated>
         </entry>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

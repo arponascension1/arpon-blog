@@ -12,6 +12,24 @@
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
     </url>
+    <url>
+        <loc><?php echo e(route('blog.about')); ?></loc>
+        <lastmod><?php echo e(now()->toAtomString()); ?></lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc><?php echo e(route('blog.contact')); ?></loc>
+        <lastmod><?php echo e(now()->toAtomString()); ?></lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc><?php echo e(route('blog.privacy')); ?></loc>
+        <lastmod><?php echo e(now()->toAtomString()); ?></lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.3</priority>
+    </url>
 
     <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <url>

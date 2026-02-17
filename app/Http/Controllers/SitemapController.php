@@ -40,7 +40,9 @@ class SitemapController extends Controller
         $content = "User-agent: *\n";
         $content .= "Disallow: /admin\n";
         $content .= "Disallow: /login\n";
-        $content .= "Disallow: /register\n\n";
+        $content .= "Disallow: /register\n";
+        $content .= "Disallow: /dashboard\n";
+        $content .= "Disallow: /profile\n\n";
         $content .= 'Sitemap: '.url('/sitemap.xml')."\n";
 
         return response($content, 200)

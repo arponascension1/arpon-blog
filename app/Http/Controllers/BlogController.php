@@ -219,4 +219,20 @@ class BlogController extends Controller
             'tags' => Tag::all(),
         ]);
     }
+
+    /**
+     * Display the about page.
+     */
+    public function about(): Response
+    {
+        return Inertia::render('Blog/About');
+    }
+
+    /**
+     * Display the privacy policy page.
+     */
+    public function privacyPolicy(): Response
+    {
+        return Inertia::render('Blog/PrivacyPolicy');
+    }
 }

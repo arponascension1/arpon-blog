@@ -87,4 +87,5 @@ export type PageProps<
         user: User;
     };
     flash?: FlashMessages;
+    settings?: Record<string, string>;
 };

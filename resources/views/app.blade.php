@@ -23,9 +23,15 @@
 
         <link rel="alternate" type="application/atom+xml" title="Recent Stories" href="{{ route('blog.feed') }}">
 
+        @if(config('services.google.adsense_client_id'))
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ config('services.google.adsense_client_id') }}"
+                crossorigin="anonymous"></script>
+        @endif
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
         <!-- Scripts -->
         @routes

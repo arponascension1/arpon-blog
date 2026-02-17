@@ -2,6 +2,7 @@ import React from 'react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import SEO from '@/Components/SEO';
 import Breadcrumbs from '@/Components/Breadcrumbs';
+import GoogleAd from '@/Components/GoogleAd';
 import { Link, router } from '@inertiajs/react';
 
 interface Post {
@@ -115,6 +116,10 @@ export default function Articles({ posts, categories, tags, filters }: ArticlesP
                     </div>
                 </div>
             </section>
+
+            <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 mt-12">
+                <GoogleAd adSlot="777888999" />
+            </div>
 
             {/* Main Content */}
             <section className="py-24">

@@ -2,6 +2,7 @@ import React from 'react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import SEO from '@/Components/SEO';
 import Breadcrumbs from '@/Components/Breadcrumbs';
+import GoogleAd from '@/Components/GoogleAd';
 import { Link } from '@inertiajs/react';
 
 interface Post {
@@ -180,6 +181,10 @@ export default function Index({ posts, featured_posts, categories, tag, category
                     </div>
                 </section>
             )}
+
+            <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
+                <GoogleAd adSlot="555666777" className="my-10" />
+            </div>
 
             {/* Recent Articles Section (Limited to 4) */}
             <section className="py-32 bg-[#fafafa]">

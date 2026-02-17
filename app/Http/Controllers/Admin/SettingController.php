@@ -7,16 +7,17 @@ use App\Models\Setting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class SettingController extends Controller
 {
-    public function index(): Response
+    public function index(Request $request): Response
     {
         $settings = Setting::all()->pluck('value', 'key');
 
-        // Ensure default keys exist if they don't in DB
+        // ... (existing defaults)
         $defaults = [
             // General
             'site_name' => config('app.name', 'Laravel Blog'),
@@ -47,12 +48,53 @@ class SettingController extends Controller
             // Maintenance
             'maintenance_mode' => '0',
             'maintenance_message' => 'Site is under maintenance. Please check back later.',
+
+            // Ads
+            'google_adsense_client_id' => '',
+
+            // Pages Content
+            'about_content' => '<h2>Our Mission</h2><p>At Arpon Blog, our mission is simple: to provide high-quality, thought-provoking content that informs, inspires, and challenges our readers.</p>',
+            'privacy_policy_content' => '<h2>Privacy Policy</h2><p>Your privacy is important to us. It is Arpon Blog\'s policy to respect your privacy regarding any information we may collect from you across our website.</p>',
+
+            // SMTP
+            'mail_mailer' => 'smtp',
+            'mail_host' => '',
+            'mail_port' => '587',
+            'mail_username' => '',
+            'mail_password' => '',
+            'mail_encryption' => 'tls',
+            'mail_from_address' => '',
+            'mail_from_name' => '',
         ];
 
         $settings = array_merge($defaults, $settings->toArray());
 
+        // Mask sensitive data for the UI
+        if (! empty($settings['mail_password'])) {
+            $settings['mail_password'] = '********';
+        }
+
+        // Decrypt AdSense ID for the UI if it's encrypted
+        if (! empty($settings['google_adsense_client_id'])) {
+            try {
+                $settings['google_adsense_client_id'] = decrypt($settings['google_adsense_client_id']);
+            } catch (\Exception $e) {
+                // Keep as is if not encrypted yet
+            }
+        }
+
+        // Decrypt SMTP Username for the UI if it's encrypted
+        if (! empty($settings['mail_username'])) {
+            try {
+                $settings['mail_username'] = decrypt($settings['mail_username']);
+            } catch (\Exception $e) {
+                // Keep as is
+            }
+        }
+
         return Inertia::render('Admin/Settings/Index', [
             'settings' => $settings,
+            'active_tab' => $request->query('tab', 'general'),
         ]);
     }
 
@@ -88,9 +130,39 @@ class SettingController extends Controller
             // Maintenance
             'maintenance_mode' => 'nullable|in:0,1',
             'maintenance_message' => 'nullable|string',
+
+            // Ads
+            'google_adsense_client_id' => 'nullable|string|max:255',
+
+            // Pages Content
+            'about_content' => 'nullable|string',
+            'privacy_policy_content' => 'nullable|string',
+
+            // SMTP
+            'mail_mailer' => 'nullable|string|in:smtp,sendmail,log',
+            'mail_host' => 'nullable|string|max:255',
+            'mail_port' => 'nullable|string|max:10',
+            'mail_username' => 'nullable|string|max:255',
+            'mail_password' => 'nullable|string|max:255',
+            'mail_encryption' => 'nullable|string|max:10',
+            'mail_from_address' => 'nullable|email|max:255',
+            'mail_from_name' => 'nullable|string|max:255',
         ]);
 
+        $sensitiveKeys = ['mail_password', 'mail_username', 'google_adsense_client_id'];
+
         foreach ($validated as $key => $value) {
+            // If it's the mail password and it's masked (unchanged), don't update it
+            if ($key === 'mail_password' && $value === '********') {
+                continue;
+            }
+
+            // Encrypt sensitive fields
+            if (in_array($key, $sensitiveKeys) && ! empty($value)) {
+                $value = encrypt($value);
+                Log::info("Sensitive setting updated: {$key} by Admin ID: ".auth()->id());
+            }
+
             Setting::updateOrCreate(['key' => $key], ['value' => $value ?? '']);
         }
 

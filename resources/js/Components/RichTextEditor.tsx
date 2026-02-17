@@ -13,8 +13,6 @@ export default function RichTextEditor({ value, onChange, placeholder = 'Write s
     const [mediaModalOpen, setMediaModalOpen] = useState(false);
     
     // Pattern to fix jumping: Only pass the initial value to Jodit once.
-    // Subsequent updates are handled internally by Jodit.
-    // We only sync back to the parent on blur or image insert.
     const [initialValue] = useState(value);
     const lastContent = useRef(value);
 
@@ -53,12 +51,34 @@ export default function RichTextEditor({ value, onChange, placeholder = 'Write s
         askBeforePasteHTML: false,
         askBeforePasteFromWord: false,
         defaultActionOnPaste: 'insert_clear_html',
+        image: {
+            useClasses: false,
+            editSrc: false,
+            editTitle: false,
+            editAlt: false,
+        },
+        align: {
+            useClasses: false,
+        },
+        // This is the key: Force the bubble menu to use the same alignment logic as the header
+        popup: {
+            img: [
+                'delete',
+                'info',
+                '|',
+                'align',
+                '|',
+                'link',
+            ]
+        }
     } as any), [placeholder]);
 
     const handleMediaSelect = (url: string) => {
         if (editorRef.current) {
             const editor = (editorRef.current as any);
-            editor.selection.insertImage(url);
+            // Insert as a standard block. Wrapping in a paragraph makes the header alignment buttons work reliably.
+            // Removed 'text-align: center' to let it default to left alignment.
+            editor.selection.insertHTML(`<p><img src="${url}" alt="" style="max-width: 100%; height: auto;" /></p>`);
             const newContent = editor.value;
             lastContent.current = newContent;
             onChange(newContent);
@@ -92,6 +112,25 @@ export default function RichTextEditor({ value, onChange, placeholder = 'Write s
                 .jodit-editor-container .jodit-container:not(.jodit_fullsize) { border: none !important; height: 600px !important; }
                 .jodit-editor-container .jodit-container:not(.jodit_fullsize) .jodit-workplace { height: 560px !important; overflow-y: auto !important; }
                 .jodit-editor-container .jodit-wysiwyg { padding: 2rem !important; }
+                
+                /* CRITICAL FIX: Ensure images in the editor always stay centered/aligned based on their parent P tag */
+                /* We prevent Jodit from adding 'float' which breaks paragraph alignment */
+                .jodit-wysiwyg img {
+                    display: inline-block !important;
+                    float: none !important;
+                    vertical-align: middle;
+                }
+                
+                /* When parent paragraph is centered, make sure image behaves */
+                .jodit-wysiwyg p[style*="text-align: center"] {
+                    text-align: center !important;
+                }
+                .jodit-wysiwyg p[style*="text-align: right"] {
+                    text-align: right !important;
+                }
+                .jodit-wysiwyg p[style*="text-align: left"] {
+                    text-align: left !important;
+                }
             `}} />
         </div>
     );

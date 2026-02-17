@@ -1,6 +1,7 @@
 import React from 'react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import SEO from '@/Components/SEO';
+import GoogleAd from '@/Components/GoogleAd';
 import { Link } from '@inertiajs/react';
 
 interface Post {
@@ -152,6 +153,7 @@ export default function Search({ posts, search, categories, popular_tags }: Sear
 
                     {/* Sidebar Suggestions */}
                     <div className="lg:w-1/3 space-y-20">
+                        <GoogleAd adSlot="000111222" />
                         <div>
                             <h4 className="text-xs font-black text-gray-900 uppercase tracking-[0.2em] mb-10 pb-4 border-b-2 border-black inline-block">Refine by Category</h4>
                             <div className="flex flex-wrap gap-3">

@@ -61,14 +61,27 @@ class MediaController extends Controller
             });
         }
 
-        // Sort items (mixed files and folders)
+        // Sort items (Mixed types, Letters before Numbers)
         $items = $items->sort(function ($a, $b) use ($sortBy, $sortOrder) {
             $valA = $a[$sortBy] ?? '';
             $valB = $b[$sortBy] ?? '';
 
             if ($sortBy === 'name') {
-                $valA = strtolower($valA);
-                $valB = strtolower($valB);
+                $charA = substr($valA, 0, 1);
+                $charB = substr($valB, 0, 1);
+
+                $isAlphaA = ctype_alpha($charA);
+                $isAlphaB = ctype_alpha($charB);
+
+                if ($isAlphaA && ! $isAlphaB) {
+                    $result = -1; // Letters come before numbers/symbols
+                } elseif (! $isAlphaA && $isAlphaB) {
+                    $result = 1; // Numbers/symbols come after letters
+                } else {
+                    $result = strnatcasecmp($valA, $valB);
+                }
+
+                return $sortOrder === 'asc' ? $result : -$result;
             }
 
             if ($valA == $valB) {
@@ -288,13 +301,29 @@ class MediaController extends Controller
         $items = $items->sort(function ($a, $b) use ($sortBy, $sortOrder) {
             $valA = $a[$sortBy] ?? '';
             $valB = $b[$sortBy] ?? '';
+
             if ($sortBy === 'name') {
-                $valA = strtolower($valA);
-                $valB = strtolower($valB);
+                $charA = substr($valA, 0, 1);
+                $charB = substr($valB, 0, 1);
+
+                $isAlphaA = ctype_alpha($charA);
+                $isAlphaB = ctype_alpha($charB);
+
+                if ($isAlphaA && ! $isAlphaB) {
+                    $result = -1;
+                } elseif (! $isAlphaA && $isAlphaB) {
+                    $result = 1;
+                } else {
+                    $result = strnatcasecmp($valA, $valB);
+                }
+
+                return $sortOrder === 'asc' ? $result : -$result;
             }
+
             if ($valA == $valB) {
                 return 0;
             }
+
             if ($sortOrder === 'asc') {
                 return $valA < $valB ? -1 : 1;
             }

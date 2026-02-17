@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 // Public Blog Routes
 Route::get('/', [BlogController::class, 'index'])->name('home');
 Route::get('/articles', [BlogController::class, 'articles'])->name('blog.articles');
+Route::get('/about', [BlogController::class, 'about'])->name('blog.about');
+Route::get('/privacy-policy', [BlogController::class, 'privacyPolicy'])->name('blog.privacy');
+Route::get('/contact', [\App\Http\Controllers\Client\ContactController::class, 'show'])->name('blog.contact');
+Route::post('/contact', [\App\Http\Controllers\Client\ContactController::class, 'store'])->name('blog.contact.store');
 Route::get('/search', [BlogController::class, 'search'])->name('blog.search');
 Route::get('/posts/{slug}', [BlogController::class, 'show'])->name('posts.show');
 Route::get('/category/{category:slug}', [BlogController::class, 'category'])->name('blog.category');
@@ -65,6 +69,9 @@ Route::middleware(['auth', 'admin', 'verified'])->prefix('admin')->name('admin.'
     Route::post('/media/rename', [MediaController::class, 'rename'])->name('media.rename');
     Route::post('/media/move', [MediaController::class, 'move'])->name('media.move');
     Route::delete('/media/delete', [MediaController::class, 'destroy'])->name('media.destroy');
+
+    // Contact routes
+    Route::resource('contacts', \App\Http\Controllers\Admin\ContactController::class)->only(['index', 'show', 'destroy']);
 
     // Setting routes
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');

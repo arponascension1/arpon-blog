@@ -3,6 +3,7 @@ import PublicLayout from '@/Layouts/PublicLayout';
 import SEO from '@/Components/SEO';
 import Breadcrumbs from '@/Components/Breadcrumbs';
 import SocialShare from '@/Components/SocialShare';
+import GoogleAd from '@/Components/GoogleAd';
 import { Link, usePage, router } from '@inertiajs/react';
 
 interface Post {
@@ -271,6 +272,11 @@ export default function Show({ post, related_posts, is_liked }: ShowProps) {
                                     </div>
                                 </div>
                             </div>
+
+                            <GoogleAd 
+                                adSlot="1234567890" 
+                                className="mb-16" 
+                            />
 
                             <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[2.5rem] p-10 text-white shadow-2xl shadow-blue-200">
                                 <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-200 mb-6">Never Miss a Story</h4>

@@ -36,6 +36,42 @@ class HandleInertiaRequests extends Middleware
             return Setting::all()->pluck('value', 'key')->toArray();
         });
 
+        // Define which settings are safe to share with the frontend
+        $publicSettings = collect($settings)->only([
+            'site_name',
+            'app_description',
+            'site_logo',
+            'site_favicon',
+            'site_language',
+            'timezone',
+            'site_description',
+            'site_keywords',
+            'og_title',
+            'og_description',
+            'twitter_card',
+            'google_analytics_id',
+            'search_console_id',
+            'admin_email',
+            'contact_phone',
+            'contact_address',
+            'facebook_url',
+            'twitter_url',
+            'instagram_url',
+            'linkedin_url',
+            'google_adsense_client_id',
+            'about_content',
+            'privacy_policy_content',
+        ])->toArray();
+
+        // Decrypt AdSense ID for the frontend
+        if (! empty($publicSettings['google_adsense_client_id'])) {
+            try {
+                $publicSettings['google_adsense_client_id'] = decrypt($publicSettings['google_adsense_client_id']);
+            } catch (\Exception $e) {
+                // Keep as is
+            }
+        }
+
         return [
             ...parent::share($request),
             'auth' => [
@@ -45,7 +81,7 @@ class HandleInertiaRequests extends Middleware
                 'success' => $request->session()->get('success'),
                 'error' => $request->session()->get('error'),
             ],
-            'settings' => $settings,
+            'settings' => $publicSettings,
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),

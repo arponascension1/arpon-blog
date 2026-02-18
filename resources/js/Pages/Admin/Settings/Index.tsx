@@ -118,9 +118,16 @@ export default function Index({ settings, active_tab }: SettingsProps) {
 
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
-        patch(route('admin.settings.update'), {
+        
+        // Add tab to the form data before submitting
+        const formData = { ...data, tab: activeTab };
+        
+        // We can use router.patch if we want to send custom data, 
+        // but since we are using useForm, we should probably add tab to the useForm initial state or update it.
+        // For simplicity and to fix the TS error, let's use router.patch or update the useForm data.
+        
+        patch(route('admin.settings.update', { tab: activeTab }), {
             preserveScroll: true,
-            data: { ...data, tab: activeTab },
             onError: (errors) => {
                 if (errors.site_name || errors.app_description || errors.site_logo || errors.site_favicon || errors.site_language || errors.timezone) {
                     handleTabChange('general');

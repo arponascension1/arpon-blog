@@ -22,8 +22,19 @@ class AppServiceProvider extends ServiceProvider
     {
         Vite::prefetch(concurrency: 3);
 
+        if ($this->app->runningInConsole()) {
+            return;
+        }
+
         $settings = \Illuminate\Support\Facades\Cache::rememberForever('app_settings', function () {
-            return \App\Models\Setting::all()->pluck('value', 'key')->toArray();
+            try {
+                if (! \Illuminate\Support\Facades\Schema::hasTable('settings')) {
+                    return [];
+                }
+                return \App\Models\Setting::all()->pluck('value', 'key')->toArray();
+            } catch (\Exception $e) {
+                return [];
+            }
         });
 
         // Apply Mail Settings at Runtime

@@ -33,7 +33,14 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $settings = Cache::rememberForever('app_settings', function () {
-            return Setting::all()->pluck('value', 'key')->toArray();
+            try {
+                if (! \Illuminate\Support\Facades\Schema::hasTable('settings')) {
+                    return [];
+                }
+                return Setting::all()->pluck('value', 'key')->toArray();
+            } catch (\Exception $e) {
+                return [];
+            }
         });
 
         // Define which settings are safe to share with the frontend

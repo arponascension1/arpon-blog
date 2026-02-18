@@ -18,7 +18,7 @@ class MediaTest extends TestCase
     {
         parent::setUp();
         $this->admin = User::factory()->create(['is_admin' => true]);
-        Storage::fake('public');
+        Storage::fake('media');
         $this->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class);
     }
 
@@ -45,7 +45,7 @@ class MediaTest extends TestCase
         ]);
 
         $response->assertStatus(302);
-        Storage::disk('public')->assertExists('test.txt');
+        Storage::disk('media')->assertExists('test.txt');
     }
 
     public function test_admin_can_create_folder(): void
@@ -56,12 +56,12 @@ class MediaTest extends TestCase
         ]);
 
         $response->assertStatus(302);
-        Storage::disk('public')->assertExists('test-folder');
+        Storage::disk('media')->assertExists('test-folder');
     }
 
     public function test_admin_can_delete_files(): void
     {
-        Storage::disk('public')->put('test.txt', 'hello');
+        Storage::disk('media')->put('test.txt', 'hello');
 
         $response = $this->actingAs($this->admin)->deleteJson(route('admin.media.destroy'), [
             'items' => [
@@ -70,13 +70,13 @@ class MediaTest extends TestCase
         ]);
 
         $response->assertStatus(302);
-        Storage::disk('public')->assertMissing('test.txt');
+        Storage::disk('media')->assertMissing('test.txt');
     }
 
     public function test_admin_can_delete_folders(): void
     {
-        Storage::disk('public')->makeDirectory('test-folder');
-        Storage::disk('public')->put('test-folder/test.txt', 'hello');
+        Storage::disk('media')->makeDirectory('test-folder');
+        Storage::disk('media')->put('test-folder/test.txt', 'hello');
 
         $response = $this->actingAs($this->admin)->deleteJson(route('admin.media.destroy'), [
             'items' => [
@@ -85,7 +85,7 @@ class MediaTest extends TestCase
         ]);
 
         $response->assertStatus(302);
-        Storage::disk('public')->assertMissing('test-folder');
+        Storage::disk('media')->assertMissing('test-folder');
     }
 
     public function test_non_admin_cannot_access_media(): void

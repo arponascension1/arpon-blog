@@ -49,6 +49,17 @@ export default function RichTextEditor({ value, onChange, placeholder = 'Write s
         heightMin: 500,
         heightMax: '1000',
         imageUpload: false,
+        fontFamily: {
+            "Figtree, sans-serif": "Figtree (Default)",
+            "Arial,Helvetica,sans-serif": "Arial",
+            "Georgia,serif": "Georgia",
+            "Impact,Charcoal,sans-serif": "Impact",
+            "Tahoma,Geneva,sans-serif": "Tahoma",
+            "Times New Roman,Times,serif": "Times New Roman",
+            "Verdana,Geneva,sans-serif": "Verdana",
+            "Courier New,Courier,monospace": "Courier New"
+        },
+        fontSize: ["8", "10", "12", "14", "18", "24", "30", "36", "48", "60", "72", "96"],
         toolbarButtons: [
             'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
             'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineStyle', 'paragraphStyle', '|',
@@ -62,7 +73,7 @@ export default function RichTextEditor({ value, onChange, placeholder = 'Write s
             'align', 'charCounter', 'codeBeautifier', 'codeView', 'colors', 'draggable', 'embedly', 'emoticons',
             'entities', 'file', 'fontFamily', 'fontSize', 'fullscreen', 'image', 'inlineStyle', 'link', 'lists',
             'paragraphFormat', 'paragraphStyle', 'print', 'quickInsert', 'quote', 'save', 'table', 'url', 'video',
-            'wordPaste', 'specialCharacters', 'wordPaste'
+            'wordPaste', 'specialCharacters'
         ],
         events: {
             'contentChanged': function (this: any) {
@@ -92,7 +103,7 @@ export default function RichTextEditor({ value, onChange, placeholder = 'Write s
                     min-height: 500px;
                     font-size: 1.25rem;
                     line-height: 1.8;
-                    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+                    font-family: inherit;
                     color: #1f2937;
                 }
                 .fr-element img {

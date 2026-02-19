@@ -39,7 +39,7 @@ export default function About() {
                 <main className="max-w-4xl mx-auto px-6 -mt-20 relative z-10">
                     <div className="bg-white rounded-[3rem] p-10 md:p-20 shadow-2xl border border-gray-50">
                         <div
-                            className="prose prose-xl prose-slate max-w-none text-gray-800 leading-[1.8] font-serif prose-headings:font-sans prose-headings:font-black prose-headings:tracking-tighter prose-blockquote:border-l-[12px] prose-blockquote:border-black prose-blockquote:bg-gray-50 prose-blockquote:py-10 prose-blockquote:px-12 prose-blockquote:rounded-r-2xl prose-blockquote:not-italic editor-content fr-view"
+                            className="prose prose-xl prose-slate max-w-none text-gray-800 leading-[1.8] prose-headings:font-sans prose-headings:font-black prose-headings:tracking-tighter prose-blockquote:border-l-[12px] prose-blockquote:border-black prose-blockquote:bg-gray-50 prose-blockquote:py-10 prose-blockquote:px-12 prose-blockquote:rounded-r-2xl prose-blockquote:not-italic editor-content fr-view"
                             dangerouslySetInnerHTML={{ __html: settings?.about_content || '<p>Our mission is simple: to provide high-quality, thought-provoking content that informs, inspires, and challenges our readers.</p>' }}
                         />
                     </div>

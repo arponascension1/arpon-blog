@@ -32,7 +32,7 @@ export default function PrivacyPolicy() {
                 <main className="max-w-5xl mx-auto px-6 py-20">
                     <div className="bg-white rounded-[3rem] p-10 md:p-20 shadow-xl border border-gray-100">
                         <div
-                            className="prose prose-xl prose-slate max-w-none text-gray-700 leading-[1.8] font-serif prose-headings:font-black prose-headings:text-gray-900 editor-content fr-view"
+                            className="prose prose-xl prose-slate max-w-none text-gray-700 leading-[1.8] prose-headings:font-black prose-headings:text-gray-900 editor-content fr-view"
                             dangerouslySetInnerHTML={{ __html: settings?.privacy_policy_content || '<p>Your privacy is important to us. It is our policy to respect your privacy regarding any information we may collect from you across our website.</p>' }}
                         />
                     </div>

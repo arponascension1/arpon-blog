@@ -202,7 +202,7 @@ export default function Show({ post, related_posts, is_liked }: ShowProps) {
 
                             {/* Content */}
                             <div
-                                className="prose prose-xl prose-slate max-w-none text-gray-800 leading-[1.8] font-serif prose-headings:font-sans prose-headings:font-black prose-headings:tracking-tighter prose-a:text-blue-600 prose-img:rounded-none prose-blockquote:border-l-[12px] prose-blockquote:border-black prose-blockquote:bg-gray-50 prose-blockquote:py-10 prose-blockquote:px-16 prose-blockquote:rounded-r-2xl prose-blockquote:not-italic prose-blockquote:font-sans prose-blockquote:font-bold prose-blockquote:text-gray-900 editor-content fr-view"
+                                className="prose prose-xl prose-slate max-w-none text-gray-800 leading-[1.8] prose-headings:font-sans prose-headings:font-black prose-headings:tracking-tighter prose-a:text-blue-600 prose-img:rounded-none prose-blockquote:border-l-[12px] prose-blockquote:border-black prose-blockquote:bg-gray-50 prose-blockquote:py-10 prose-blockquote:px-16 prose-blockquote:rounded-r-2xl prose-blockquote:not-italic prose-blockquote:font-sans prose-blockquote:font-bold prose-blockquote:text-gray-900 editor-content fr-view"
                                 dangerouslySetInnerHTML={{ __html: post.content }}
                             />
 

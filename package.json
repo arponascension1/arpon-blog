@@ -28,9 +28,10 @@
     },
     "dependencies": {
         "@tailwindcss/typography": "^0.5.19",
-        "jodit-react": "^5.3.21",
-        "react-is": "^19.2.4",
-        "recharts": "^3.7.0",
+        "froala-editor": "^5.0.1",
+        "react-froala-wysiwyg": "^5.0.1",
+        "react-is": "^18.2.0",
+        "recharts": "^2.15.0",
         "ziggy-js": "^2.6.0"
     }
 }

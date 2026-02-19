@@ -158,10 +158,11 @@ class BlogController extends Controller
             $post->increment('views');
 
             // Track daily views
-            \App\Models\PostView::updateOrCreate(
+            $postView = \App\Models\PostView::firstOrCreate(
                 ['post_id' => $post->id, 'view_date' => now()->toDateString()],
-                ['count' => \Illuminate\Support\Facades\DB::raw('count + 1')]
+                ['count' => 0]
             );
+            $postView->increment('count');
 
             session()->put($viewedSessionKey, true);
         }

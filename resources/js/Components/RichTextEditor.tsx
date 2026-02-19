@@ -1,6 +1,28 @@
-import React, { useMemo, useState, useRef } from 'react';
-import JoditEditor from 'jodit-react';
+import React, { useState, useRef } from 'react';
+import 'froala-editor/css/froala_style.min.css';
+import 'froala-editor/css/froala_editor.pkgd.min.css';
+import 'froala-editor/css/plugins/colors.min.css';
+import 'froala-editor/js/plugins.pkgd.min.js';
+import 'froala-editor/js/plugins/colors.min.js';
+import FroalaEditor from 'froala-editor';
+import FroalaEditorComponent from 'react-froala-wysiwyg';
 import MediaModal from '@/Components/MediaModal';
+
+// Define custom button for Media Picker
+// We check if the command exists to avoid re-registering on hot reloads
+if (!(FroalaEditor.COMMANDS as any).mediaPicker) {
+    FroalaEditor.DefineIcon('mediaPicker', { NAME: 'image', SVG_KEY: 'insertImage' });
+    FroalaEditor.RegisterCommand('mediaPicker', {
+        title: 'Insert Media',
+        focus: false,
+        undo: false,
+        refreshAfterCallback: false,
+        callback: function () {
+            // Trigger a custom event on the editor instance that the React component can listen to
+            this.events.trigger('openMediaPicker', [], true);
+        }
+    });
+}
 
 interface RichTextEditorProps {
     value: string;
@@ -9,129 +31,98 @@ interface RichTextEditorProps {
 }
 
 export default function RichTextEditor({ value, onChange, placeholder = 'Write something...' }: RichTextEditorProps) {
-    const editorRef = useRef(null);
-    const [mediaModalOpen, setMediaModalOpen] = useState(false);
-    
-    // Pattern to fix jumping: Only pass the initial value to Jodit once.
-    const [initialValue] = useState(value);
-    const lastContent = useRef(value);
-
-    const config = useMemo(() => ({
-        readonly: false,
-        placeholder: placeholder,
-        height: 600,
-        minHeight: 600,
-        scrollMode: 'inside',
-        toolbarSticky: false,
-        toolbarAdaptive: false,
-        autofocus: false,
-        spellcheck: true,
-        theme: 'default',
-        buttons: [
-            'source', '|',
-            'bold', 'italic', 'underline', 'strikethrough', '|',
-            'ul', 'ol', '|',
-            'outdent', 'indent', '|',
-            'font', 'fontsize', 'brush', 'paragraph', '|',
-            {
-                name: 'media',
-                tooltip: 'Insert from Media Library',
-                iconURL: 'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3QgeD0iMyIgeT0iMyIgd2lkdGg9IjE4IiBoZWlnaHQ9IjE4IiByeD0iMiIgcnk9IjIiLz48Y2lyY2xlIGN4PSI4LjUiIGN5PSI4LjUiIHI9IjEuNSIvPjxwb2x5bGluZSBwb2ludHM9IjIxIDE1IDE2IDEwIDUgMjEiLz48L3N2Zz4=',
-                exec: (editor: any) => {
-                    setMediaModalOpen(true);
-                }
-            },
-            'table', 'link', '|',
-            'align', 'undo', 'redo', '|',
-            'hr', 'eraser', 'copyformat', '|',
-            'fullsize', 'print', 'about'
-        ],
-        removeButtons: ['image', 'file', 'video'],
-        showXPathInStatusbar: false,
-        askBeforePasteHTML: false,
-        askBeforePasteFromWord: false,
-        defaultActionOnPaste: 'insert_clear_html',
-        image: {
-            useClasses: false,
-            editSrc: false,
-            editTitle: false,
-            editAlt: false,
-        },
-        align: {
-            useClasses: false,
-        },
-        // This is the key: Force the bubble menu to use the same alignment logic as the header
-        popup: {
-            img: [
-                'delete',
-                'info',
-                '|',
-                'align',
-                '|',
-                'link',
-            ]
-        }
-    } as any), [placeholder]);
+    const [showMediaModal, setShowMediaModal] = useState(false);
+    const editorRef = useRef<any>(null);
 
     const handleMediaSelect = (url: string) => {
         if (editorRef.current) {
-            const editor = (editorRef.current as any);
-            // Insert as a standard block. Wrapping in a paragraph makes the header alignment buttons work reliably.
-            // Removed 'text-align: center' to let it default to left alignment.
-            editor.selection.insertHTML(`<p><img src="${url}" alt="" style="max-width: 100%; height: auto;" /></p>`);
-            const newContent = editor.value;
-            lastContent.current = newContent;
-            onChange(newContent);
+            // Restore focus to editor
+            editorRef.current.events.focus();
+            // Insert the image
+            editorRef.current.image.insert(url, true, null, null, null);
         }
+        setShowMediaModal(false);
     };
 
-    const handleBlur = (newContent: string) => {
-        if (newContent !== lastContent.current) {
-            lastContent.current = newContent;
-            onChange(newContent);
-        }
+    const config = {
+        placeholderText: placeholder,
+        heightMin: 500,
+        heightMax: '1000',
+        imageUpload: false,
+        toolbarButtons: [
+            'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|',
+            'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineStyle', 'paragraphStyle', '|',
+            'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-',
+            'insertLink', 'mediaPicker', 'insertVideo', 'insertTable', '|',
+            'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|',
+            'print', 'help', 'html', '|',
+            'undo', 'redo', 'fullscreen'
+        ],
+        pluginsEnabled: [
+            'align', 'charCounter', 'codeBeautifier', 'codeView', 'colors', 'draggable', 'embedly', 'emoticons',
+            'entities', 'file', 'fontFamily', 'fontSize', 'fullscreen', 'image', 'inlineStyle', 'link', 'lists',
+            'paragraphFormat', 'paragraphStyle', 'print', 'quickInsert', 'quote', 'save', 'table', 'url', 'video',
+            'wordPaste', 'specialCharacters', 'wordPaste'
+        ],
+        events: {
+            'contentChanged': function (this: any) {
+                onChange(this.html.get());
+            },
+            'initialized': function (this: any) {
+                editorRef.current = this;
+            },
+            'openMediaPicker': function (this: any) {
+                setShowMediaModal(true);
+            }
+        },
+        attribution: false
     };
 
     return (
-        <div className="w-full border border-gray-300 rounded-lg overflow-hidden bg-white jodit-editor-container min-h-[600px]">
-            <MediaModal 
-                show={mediaModalOpen} 
-                onClose={() => setMediaModalOpen(false)} 
-                onSelect={handleMediaSelect} 
-                title="Insert Image from Media Library"
-            />
-            
-            <JoditEditor
-                ref={editorRef}
-                value={initialValue}
+        <div className="w-full border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm ring-1 ring-black/5">
+            <FroalaEditorComponent
+                tag='textarea'
                 config={config}
-                onBlur={handleBlur}
-                onChange={() => {}} 
+                model={value}
+                onModelChange={onChange}
             />
-            <style dangerouslySetInnerHTML={{ __html: `
-                .jodit-editor-container .jodit-container:not(.jodit_fullsize) { border: none !important; height: 600px !important; }
-                .jodit-editor-container .jodit-container:not(.jodit_fullsize) .jodit-workplace { height: 560px !important; overflow-y: auto !important; }
-                .jodit-editor-container .jodit-wysiwyg { padding: 2rem !important; }
-                
-                /* CRITICAL FIX: Ensure images in the editor always stay centered/aligned based on their parent P tag */
-                /* We prevent Jodit from adding 'float' which breaks paragraph alignment */
-                .jodit-wysiwyg img {
-                    display: inline-block !important;
-                    float: none !important;
-                    vertical-align: middle;
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                .fr-box.fr-basic .fr-element {
+                    min-height: 500px;
+                    font-size: 1.25rem;
+                    line-height: 1.8;
+                    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+                    color: #1f2937;
                 }
-                
-                /* When parent paragraph is centered, make sure image behaves */
-                .jodit-wysiwyg p[style*="text-align: center"] {
-                    text-align: center !important;
+                .fr-element img {
+                    border-radius: 0 !important;
                 }
-                .jodit-wysiwyg p[style*="text-align: right"] {
-                    text-align: right !important;
+                .fr-element a {
+                    color: #2563eb !important;
+                    text-decoration: underline !important;
                 }
-                .jodit-wysiwyg p[style*="text-align: left"] {
-                    text-align: left !important;
+                .fr-toolbar {
+                    border-top: none !important;
+                    border-left: none !important;
+                    border-right: none !important;
+                    border-bottom: 1px solid #f3f4f6 !important;
+                    background: #f9fafb !important;
+                }
+                .fr-wrapper {
+                    border: none !important;
+                }
+                .fr-second-toolbar {
+                    border: none !important;
                 }
             `}} />
+
+            <MediaModal
+                show={showMediaModal}
+                onClose={() => setShowMediaModal(false)}
+                onSelect={handleMediaSelect}
+                title="Select Image"
+            />
         </div>
     );
 }

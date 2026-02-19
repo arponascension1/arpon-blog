@@ -153,7 +153,7 @@ export default function Index({ daily_views, category_views, top_posts, stats }:
                             </div>
                             <div className="h-[400px] w-full">
                                 {isClient ? (
-                                    <ResponsiveContainer width="100%" height="100%">
+                                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                                         <AreaChart data={daily_views}>
                                             <defs>
                                                 <linearGradient id="colorViews" x1="0" y1="0" x2="0" y2="1">
@@ -203,7 +203,7 @@ export default function Index({ daily_views, category_views, top_posts, stats }:
                             <p className="text-sm text-gray-500 font-medium mb-10">Views by category</p>
                             <div className="h-[300px] w-full">
                                 {isClient ? (
-                                    <ResponsiveContainer width="100%" height="100%">
+                                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                                         <PieChart>
                                             <Pie
                                                 data={category_views}
@@ -279,7 +279,7 @@ export default function Index({ daily_views, category_views, top_posts, stats }:
                             <p className="text-sm text-gray-500 font-medium mb-10">Popularity comparison by topic</p>
                             <div className="h-[400px] w-full">
                                 {isClient ? (
-                                    <ResponsiveContainer width="100%" height="100%">
+                                    <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                                         <BarChart data={category_views}>
                                             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                                             <XAxis 

@@ -142,7 +142,7 @@ export default function Dashboard({ stats, recent_posts, popular_posts, recent_u
                                 </div>
                             </div>
                             <div className="h-64 sm:h-80 w-full">
-                                <ResponsiveContainer width="100%" height="100%">
+                                <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                                     <AreaChart data={chart_data} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
                                         <defs>
                                             <linearGradient id="colorViews" x1="0" y1="0" x2="0" y2="1">
@@ -195,7 +195,7 @@ export default function Dashboard({ stats, recent_posts, popular_posts, recent_u
                                 </div>
                             </div>
                             <div className="h-64 sm:h-80 w-full">
-                                <ResponsiveContainer width="100%" height="100%">
+                                <ResponsiveContainer width="100%" height="100%" minWidth={0}>
                                     <BarChart data={chart_data} margin={{ top: 10, right: 0, left: -25, bottom: 0 }}>
                                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
                                         <XAxis 

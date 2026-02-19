@@ -10,12 +10,12 @@ export default function PrivacyPolicy() {
 
     return (
         <PublicLayout>
-            <SEO 
-                title="Privacy Policy" 
+            <SEO
+                title="Privacy Policy"
                 description="Read our privacy policy to understand how we handle your data."
                 breadcrumbs={[{ label: 'Privacy Policy', url: route('blog.privacy') }]}
             />
-            
+
             <div className="bg-[#fafafa] min-h-screen pb-32">
                 <header className="pt-32 pb-20 bg-white border-b border-gray-100">
                     <div className="max-w-5xl mx-auto px-6">
@@ -31,8 +31,8 @@ export default function PrivacyPolicy() {
 
                 <main className="max-w-5xl mx-auto px-6 py-20">
                     <div className="bg-white rounded-[3rem] p-10 md:p-20 shadow-xl border border-gray-100">
-                        <div 
-                            className="prose prose-xl prose-slate max-w-none text-gray-700 leading-relaxed prose-headings:font-black prose-headings:text-gray-900"
+                        <div
+                            className="prose prose-xl prose-slate max-w-none text-gray-700 leading-[1.8] font-serif prose-headings:font-black prose-headings:text-gray-900 editor-content fr-view"
                             dangerouslySetInnerHTML={{ __html: settings?.privacy_policy_content || '<p>Your privacy is important to us. It is our policy to respect your privacy regarding any information we may collect from you across our website.</p>' }}
                         />
                     </div>

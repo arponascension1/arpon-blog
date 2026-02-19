@@ -1,4 +1,5 @@
 import '../css/app.css';
+import 'froala-editor/css/froala_style.min.css';
 import './bootstrap';
 
 import { createInertiaApp } from '@inertiajs/react';

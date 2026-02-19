@@ -63,8 +63,8 @@ export default function Show({ post, related_posts, is_liked }: ShowProps) {
 
     return (
         <PublicLayout>
-            <SEO 
-                title={post.meta_title || post.title} 
+            <SEO
+                title={post.meta_title || post.title}
                 description={post.meta_description || post.excerpt}
                 keywords={post.meta_keywords || undefined}
                 image={post.featured_image}
@@ -100,30 +100,30 @@ export default function Show({ post, related_posts, is_liked }: ShowProps) {
             />
 
             {/* Reading Progress Bar */}
-            <div 
+            <div
                 className="fixed top-0 left-0 h-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 z-[100] transition-all duration-100 ease-out"
                 style={{ width: `${progress}%` }}
             ></div>
-            
+
             <div className="bg-[#fafafa] min-h-screen">
                 {/* Dynamic Header Section */}
                 <header className="relative pt-32 pb-40 overflow-hidden bg-white">
                     <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[600px] h-[600px] bg-blue-50 rounded-full blur-3xl opacity-40"></div>
                     <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-[400px] h-[400px] bg-indigo-50 rounded-full blur-3xl opacity-30"></div>
-                    
+
                     <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 relative text-center">
                         <div className="flex justify-center mb-8 animate-fadeIn">
-                            <Breadcrumbs 
+                            <Breadcrumbs
                                 items={[
                                     { label: 'Articles', url: route('blog.articles') },
                                     { label: post.title, active: true }
-                                ]} 
+                                ]}
                             />
                         </div>
                         <div className="mb-12 animate-fadeIn flex justify-center items-center gap-4">
                             {post.category && (
-                                <Link 
-                                    href={route('blog.category', post.category.slug)} 
+                                <Link
+                                    href={route('blog.category', post.category.slug)}
                                     className="px-6 py-2 bg-black text-white text-[10px] font-black uppercase tracking-[0.3em] rounded-full hover:bg-blue-600 transition-all shadow-lg"
                                 >
                                     {post.category.name}
@@ -131,7 +131,7 @@ export default function Show({ post, related_posts, is_liked }: ShowProps) {
                             )}
                             <span className="text-xs font-black text-gray-400 uppercase tracking-widest">{formatDate(post.published_at)}</span>
                         </div>
-                        
+
                         <h1 className="text-5xl md:text-8xl font-black text-gray-900 tracking-tighter leading-[0.95] mb-16 animate-slideUp">
                             {post.title}
                         </h1>
@@ -159,10 +159,10 @@ export default function Show({ post, related_posts, is_liked }: ShowProps) {
                     {/* Hero Image */}
                     {post.featured_image && (
                         <div className="mb-24 animate-fadeIn">
-                            <div className="relative h-[500px] md:h-[850px] rounded-[5rem] overflow-hidden shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] border-[16px] border-white ring-1 ring-gray-100">
-                                <img 
-                                    src={post.featured_image} 
-                                    alt={post.featured_image_alt || post.title} 
+                            <div className="relative h-[500px] md:h-[850px] rounded-none overflow-hidden shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] border-8 border-white ring-1 ring-gray-100">
+                                <img
+                                    src={post.featured_image}
+                                    alt={post.featured_image_alt || post.title}
                                     className="w-full h-full object-cover"
                                 />
                             </div>
@@ -173,13 +173,12 @@ export default function Show({ post, related_posts, is_liked }: ShowProps) {
                         {/* Left Social Share Sidebar (Desktop Only) */}
                         <div className="hidden xl:block w-20 relative">
                             <div className="sticky top-32 space-y-8">
-                                <button 
+                                <button
                                     onClick={handleLike}
-                                    className={`w-full aspect-square rounded-2xl flex flex-col items-center justify-center transition-all border ${
-                                        is_liked 
-                                            ? 'bg-red-50 border-red-100 text-red-600 shadow-lg shadow-red-100' 
+                                    className={`w-full aspect-square rounded-2xl flex flex-col items-center justify-center transition-all border ${is_liked
+                                            ? 'bg-red-50 border-red-100 text-red-600 shadow-lg shadow-red-100'
                                             : 'bg-white border-gray-100 text-gray-400 hover:border-red-200 hover:text-red-400'
-                                    }`}
+                                        }`}
                                 >
                                     <svg className={`h-6 w-6 mb-1 ${is_liked ? 'fill-current' : 'fill-none'}`} stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -202,8 +201,8 @@ export default function Show({ post, related_posts, is_liked }: ShowProps) {
                             )}
 
                             {/* Content */}
-                            <div 
-                                className="prose prose-2xl prose-slate max-w-none text-gray-800 leading-[1.9] font-serif prose-headings:font-sans prose-headings:font-black prose-headings:tracking-tighter prose-a:text-blue-600 prose-img:rounded-[3rem] prose-blockquote:border-l-[12px] prose-blockquote:border-black prose-blockquote:bg-gray-50 prose-blockquote:py-10 prose-blockquote:px-16 prose-blockquote:rounded-r-[3rem] prose-blockquote:not-italic prose-blockquote:font-sans prose-blockquote:font-bold prose-blockquote:text-gray-900"
+                            <div
+                                className="prose prose-xl prose-slate max-w-none text-gray-800 leading-[1.8] font-serif prose-headings:font-sans prose-headings:font-black prose-headings:tracking-tighter prose-a:text-blue-600 prose-img:rounded-none prose-blockquote:border-l-[12px] prose-blockquote:border-black prose-blockquote:bg-gray-50 prose-blockquote:py-10 prose-blockquote:px-16 prose-blockquote:rounded-r-2xl prose-blockquote:not-italic prose-blockquote:font-sans prose-blockquote:font-bold prose-blockquote:text-gray-900 editor-content fr-view"
                                 dangerouslySetInnerHTML={{ __html: post.content }}
                             />
 
@@ -211,13 +210,12 @@ export default function Show({ post, related_posts, is_liked }: ShowProps) {
                             <div className="xl:hidden mt-20 p-10 bg-gray-50 rounded-[3rem] border border-gray-100">
                                 <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mb-8 text-center">Interactions</h4>
                                 <div className="flex flex-col items-center gap-8">
-                                    <button 
+                                    <button
                                         onClick={handleLike}
-                                        className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${
-                                            is_liked 
-                                                ? 'bg-red-600 text-white shadow-xl shadow-red-200' 
+                                        className={`flex items-center space-x-3 px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${is_liked
+                                                ? 'bg-red-600 text-white shadow-xl shadow-red-200'
                                                 : 'bg-white text-gray-900 border border-gray-200'
-                                        }`}
+                                            }`}
                                     >
                                         <svg className={`h-5 w-5 ${is_liked ? 'fill-current' : 'fill-none'}`} stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -237,8 +235,8 @@ export default function Show({ post, related_posts, is_liked }: ShowProps) {
                                     </div>
                                     <div className="flex flex-wrap gap-4">
                                         {post.tags.map((tag) => (
-                                            <Link 
-                                                key={tag.slug} 
+                                            <Link
+                                                key={tag.slug}
                                                 href={route('blog.tag', tag.slug)}
                                                 className="px-8 py-3 bg-gray-50 text-gray-500 text-xs font-black uppercase tracking-widest rounded-2xl hover:bg-black hover:text-white transition-all border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1"
                                             >
@@ -273,9 +271,9 @@ export default function Show({ post, related_posts, is_liked }: ShowProps) {
                                 </div>
                             </div>
 
-                            <GoogleAd 
-                                adSlot="1234567890" 
-                                className="mb-16" 
+                            <GoogleAd
+                                adSlot="1234567890"
+                                className="mb-16"
                             />
 
                             <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[2.5rem] p-10 text-white shadow-2xl shadow-blue-200">
@@ -306,15 +304,15 @@ export default function Show({ post, related_posts, is_liked }: ShowProps) {
                                     <div key={rp.id} className="group flex flex-col">
                                         <div className="aspect-[16/10] rounded-[2.5rem] overflow-hidden mb-8 shadow-sm group-hover:shadow-2xl transition-all duration-500 relative">
                                             <Link href={route('posts.show', rp.slug)}>
-                                                <img 
-                                                    src={rp.featured_image} 
-                                                    alt={rp.featured_image_alt || rp.title} 
-                                                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                                                <img
+                                                    src={rp.featured_image}
+                                                    alt={rp.featured_image_alt || rp.title}
+                                                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                                                 />
                                             </Link>
                                             {rp.category && (
                                                 <div className="absolute top-6 left-6 z-10">
-                                                    <Link 
+                                                    <Link
                                                         href={route('blog.category', rp.category.slug)}
                                                         className="py-1.5 px-3 bg-white/90 backdrop-blur-md rounded-lg text-[8px] font-black uppercase tracking-widest text-black shadow-sm hover:bg-black hover:text-white transition-all"
                                                     >
@@ -342,7 +340,8 @@ export default function Show({ post, related_posts, is_liked }: ShowProps) {
                 )}
             </div>
 
-            <style dangerouslySetInnerHTML={{ __html: `
+            <style dangerouslySetInnerHTML={{
+                __html: `
                 @keyframes slideUp {
                     from { opacity: 0; transform: translateY(40px); }
                     to { opacity: 1; transform: translateY(0); }

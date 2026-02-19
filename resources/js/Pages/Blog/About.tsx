@@ -10,18 +10,18 @@ export default function About() {
 
     return (
         <PublicLayout>
-            <SEO 
-                title="About Us" 
+            <SEO
+                title="About Us"
                 description="Learn more about Arpon Blog, our mission, and the stories we tell."
                 breadcrumbs={[{ label: 'About', url: route('blog.about') }]}
             />
-            
+
             <div className="bg-[#fafafa] min-h-screen pb-32">
                 {/* Header Section */}
                 <header className="relative pt-32 pb-40 overflow-hidden bg-white border-b border-gray-100">
                     <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[800px] h-[800px] bg-blue-50 rounded-full blur-3xl opacity-40"></div>
                     <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-50 rounded-full blur-3xl opacity-30"></div>
-                    
+
                     <div className="max-w-5xl mx-auto px-6 relative text-center">
                         <div className="flex justify-center mb-8 animate-fadeIn">
                             <Breadcrumbs items={[{ label: 'About', active: true }]} />
@@ -38,15 +38,16 @@ export default function About() {
 
                 <main className="max-w-4xl mx-auto px-6 -mt-20 relative z-10">
                     <div className="bg-white rounded-[3rem] p-10 md:p-20 shadow-2xl border border-gray-50">
-                        <div 
-                            className="prose prose-2xl prose-slate max-w-none text-gray-800 leading-[1.8] font-serif prose-headings:font-sans prose-headings:font-black prose-headings:tracking-tighter prose-blockquote:border-l-[12px] prose-blockquote:border-black prose-blockquote:bg-gray-50 prose-blockquote:py-10 prose-blockquote:px-12 prose-blockquote:rounded-r-3xl prose-blockquote:not-italic"
+                        <div
+                            className="prose prose-xl prose-slate max-w-none text-gray-800 leading-[1.8] font-serif prose-headings:font-sans prose-headings:font-black prose-headings:tracking-tighter prose-blockquote:border-l-[12px] prose-blockquote:border-black prose-blockquote:bg-gray-50 prose-blockquote:py-10 prose-blockquote:px-12 prose-blockquote:rounded-r-2xl prose-blockquote:not-italic editor-content fr-view"
                             dangerouslySetInnerHTML={{ __html: settings?.about_content || '<p>Our mission is simple: to provide high-quality, thought-provoking content that informs, inspires, and challenges our readers.</p>' }}
                         />
                     </div>
                 </main>
             </div>
 
-            <style dangerouslySetInnerHTML={{ __html: `
+            <style dangerouslySetInnerHTML={{
+                __html: `
                 @keyframes slideUp {
                     from { opacity: 0; transform: translateY(40px); }
                     to { opacity: 1; transform: translateY(0); }

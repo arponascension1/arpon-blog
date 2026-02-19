@@ -11,8 +11,18 @@ export default defineConfig({
         }),
         react(),
     ],
+    optimizeDeps: {
+        include: ['froala-editor', 'react-froala-wysiwyg'],
+    },
+    resolve: {
+        alias: {
+        },
+    },
     server: {
         host: 'localhost',
         cors: true,
+        hmr: {
+            host: 'localhost',
+        },
     },
 });
